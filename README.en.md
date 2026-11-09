@@ -6,9 +6,6 @@ An agent for analyzing spreadsheets in plain language. Upload an Excel or CSV fi
 "total sales by region" or "which columns have missing values". It decides which analysis functions to call,
 computes the result with pandas, and shows the answer together with every step it took.
 
-I built this while working through the [Hello-Agents](https://datawhalechina.github.io/hello-agents/) tutorial,
-to find out what it actually takes to get a tool-calling agent from a notebook demo to something deployed.
-
 ![DataAudit (English page)](docs/screenshots/readme-desktop-en.jpg)
 
 ## Features
@@ -36,7 +33,7 @@ pip install -r requirements.txt
 cp .env.example .env               # Windows: copy .env.example .env
 ```
 
-Put your model service in `.env`. Any OpenAI-compatible endpoint with function calling works: a local
+Configure the model service in `.env`. Any OpenAI-compatible endpoint with function calling works: a local
 llama.cpp / vLLM / Ollama server, or a hosted API such as DeepSeek. The file has examples for each.
 
 ```ini
@@ -52,7 +49,7 @@ python app.py                                 # then open http://127.0.0.1:7860/
 
 (PowerShell: `$env:DATAAUDIT_LANG='en'; python -m src.model_check`.)
 
-Without a model the page still opens; you just can't ask questions. Table preview and the column overview still work.
+Without a model the page still opens, but questions are unavailable. Table preview and the column overview still work.
 
 There is also a Python API, see [docs/API.md](docs/API.md) and `examples/api_client.py`.
 
@@ -62,7 +59,7 @@ The agent is a LangGraph loop: the model sees the question and the table schema,
 result, and decides what to do next. It stops after 6 steps, and repeating the same call is blocked. There is no
 fixed tool order.
 
-The main problem during development was that a small model (I deployed a 4-bit Qwen2.5-7B on a single V100) often
+The main problem during development was that a small model (the deployment uses a 4-bit Qwen2.5-7B on a single V100) often
 picked the wrong tool or made up numbers in its answer. Three things helped:
 
 1. The model first classifies the question (chart, table calculation, or data-quality check) and only sees the
@@ -90,21 +87,25 @@ python -m pytest -q
 The unit tests use a mocked model, need no GPU, and run on Linux and Windows.
 
 There are also end-to-end checks against the real model in `evaluation/`: generic table tasks 8/8, multi-domain
-tasks 11/11, two-table comparison 5/5. I wrote these tasks myself during development to catch regressions; they
+tasks 11/11, two-table comparison 5/5. These tasks were written during development to catch regressions; they
 are not an accuracy benchmark. Earlier failures are kept in [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## Limitations
 
 - One worksheet at a time, with limits on upload size and rows/columns (set in `.env`).
 - Outlier detection only points out values worth a second look; it doesn't prove they are wrong.
-- No user accounts. It listens on localhost by default; put it behind your own login before sharing it.
+- No user accounts. It listens on localhost by default; add authentication before exposing it to others.
 - If the page is closed or the service restarts mid-analysis, the run is not resumed. Finished analyses are kept.
 - Results depend a lot on the model. Smaller models pick the wrong fields more often.
-- The model's own sentences follow the language of your question, even on the English page.
+- The model's own sentences follow the language of the question, even on the English page.
 
 ## Docs
 
 [API](docs/API.md) · [Deployment](docs/DEPLOYMENT.md) · [Saved sessions](docs/PERSISTENT_SESSIONS.md) · [Test records](docs/VALIDATION.md)
+
+## Acknowledgements
+
+Built while studying the [Hello-Agents](https://datawhalechina.github.io/hello-agents/) tutorial.
 
 ## License
 

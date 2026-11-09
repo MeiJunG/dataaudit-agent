@@ -5,9 +5,6 @@
 一个用自然语言分析表格的 Agent。上传 Excel 或 CSV 后可以直接提问，比如“按地区统计销售额”“哪些列有空值”。
 它会自己决定调用哪些分析函数，用 pandas 算出结果，再把结论和每一步的调用过程一起展示出来。
 
-这是我跟着 [Hello-Agents](https://datawhalechina.github.io/hello-agents/) 教程学习时做的项目，
-想弄清楚一个 Agent 从调用工具到部署上线，中间实际会遇到哪些问题。
-
 ![DataAudit 界面](docs/screenshots/readme-desktop.jpg)
 
 ## 功能
@@ -54,7 +51,7 @@ python app.py               # 打开 http://127.0.0.1:7860
 Agent 部分用 LangGraph 写成一个循环：模型看到问题和表格结构后选一个工具，执行，看结果，再决定下一步。
 最多 6 步，连续重复同样的调用会被拦下来。工具的调用顺序没有写死。
 
-开发中最主要的问题是小模型（我部署的是 Qwen2.5-7B 的 4-bit 量化版，跑在一张 V100 上）经常选错工具，
+开发中最主要的问题是小模型（部署使用 Qwen2.5-7B 的 4-bit 量化版，单张 V100）经常选错工具，
 或者在回答里自己编数字。针对这一点做了三件事：
 
 1. 先让模型判断问题属于哪一类（画图、表格计算、数据质量检查），只给它这一类的工具；
@@ -81,7 +78,7 @@ python -m pytest -q
 单元测试用的是模拟模型，不需要 GPU，在 Linux 和 Windows 上都跑过。
 
 另外写了几组接真实模型的端到端检查（`evaluation/`）：通用表格任务 8/8、多领域任务 11/11、两表对照 5/5。
-这些题目是我在开发过程中自己写的，用来防止改代码时把已有功能改坏，不能当作准确率基准。
+这些题目是开发过程中编写的，用来防止修改代码时破坏已有功能，不能当作准确率基准。
 之前失败的记录都保留在 [docs/VALIDATION.md](docs/VALIDATION.md) 里。
 
 ## 限制
@@ -95,6 +92,10 @@ python -m pytest -q
 ## 文档
 
 [API](docs/API.md) · [部署](docs/DEPLOYMENT.md) · [会话保存](docs/PERSISTENT_SESSIONS.md) · [测试记录](docs/VALIDATION.md)
+
+## 致谢
+
+在学习 [Hello-Agents](https://datawhalechina.github.io/hello-agents/) 教程的过程中完成。
 
 ## License
 
