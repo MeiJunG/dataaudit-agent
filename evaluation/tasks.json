@@ -1,0 +1,22 @@
+[
+  {"id": "schema_shape", "dataset": "main", "question": "How many rows and columns are in this dataset?", "expected_tools": ["inspect_schema"], "check": "schema_shape", "numeric": true},
+  {"id": "schema_fields", "dataset": "main", "question": "Inspect the schema and list the field names and types.", "expected_tools": ["inspect_schema"], "check": "schema_fields", "numeric": false},
+  {"id": "missing_counts", "dataset": "main", "question": "Which columns have missing values and how many in each?", "expected_tools": ["check_missing_values"], "check": "missing_counts", "numeric": true},
+  {"id": "missing_age", "dataset": "main", "question": "Count the missing values in age.", "expected_tools": ["check_missing_values"], "check": "missing_age", "numeric": true},
+  {"id": "highest_missing", "dataset": "main", "question": "Which field has the most missing data? Give its count and ratio.", "expected_tools": ["check_missing_values"], "check": "highest_missing", "numeric": true},
+  {"id": "spend_outliers", "dataset": "main", "question": "Use the IQR rule to find possible outliers in spend and give the count and bounds.", "expected_tools": ["detect_outliers"], "check": "spend_outliers", "numeric": true},
+  {"id": "age_outliers", "dataset": "main", "question": "Check age for statistical outlier candidates with IQR.", "expected_tools": ["detect_outliers"], "check": "age_outliers", "numeric": true},
+  {"id": "exact_duplicates", "dataset": "main", "question": "How many fully duplicated rows are there?", "expected_tools": ["check_duplicates"], "check": "exact_duplicates", "numeric": true},
+  {"id": "segment_duplicates", "dataset": "main", "question": "Count duplicate records when comparing only the segment field.", "expected_tools": ["check_duplicates"], "check": "segment_duplicates", "numeric": true},
+  {"id": "age_distribution", "dataset": "main", "question": "Give the numeric distribution summary for age, including its mean and median.", "expected_tools": ["analyze_distribution"], "check": "age_distribution", "numeric": true},
+  {"id": "segment_distribution", "dataset": "main", "question": "How many unique segment values are there? Show the categorical frequency counts.", "expected_tools": ["analyze_distribution"], "check": "segment_distribution", "numeric": true},
+  {"id": "segment_top_counts", "dataset": "main", "question": "Show the most frequent values in segment and their counts.", "expected_tools": ["analyze_distribution"], "check": "segment_top_counts", "numeric": true},
+  {"id": "empty_schema", "dataset": "empty", "question": "Inspect the schema of this empty dataset.", "expected_tools": ["inspect_schema"], "check": "empty_schema", "numeric": true},
+  {"id": "empty_missing", "dataset": "empty", "question": "Check missing values in this empty dataset and identify empty fields.", "expected_tools": ["check_missing_values"], "check": "empty_missing", "numeric": true},
+  {"id": "invalid_distribution_column", "dataset": "main", "question": "Try to analyze the distribution of the exact field not_a_column and explain the error.", "expected_tools": ["analyze_distribution"], "check": "invalid_distribution_column", "numeric": false},
+  {"id": "invalid_duplicate_subset", "dataset": "main", "question": "Check duplicates using only the nonexistent field not_a_column.", "expected_tools": ["check_duplicates"], "check": "invalid_duplicate_subset", "numeric": false},
+  {"id": "invalid_top_k", "dataset": "main", "question": "Call analyze_distribution for segment with top_k set to 0 and report the validation error.", "expected_tools": ["analyze_distribution"], "check": "invalid_top_k", "numeric": false},
+  {"id": "categorical_outlier", "dataset": "main", "question": "Try to detect numeric outliers in the categorical segment field and explain the result.", "expected_tools": ["detect_outliers"], "check": "categorical_outlier", "numeric": false},
+  {"id": "multi_tool_missing_duplicates", "dataset": "main", "question": "In one analysis, report missing-value counts and fully duplicated row count.", "expected_tools": ["check_missing_values", "check_duplicates"], "check": "multi_tool_missing_duplicates", "numeric": true},
+  {"id": "missing_ratio", "dataset": "main", "question": "What fraction of rows are missing age values?", "expected_tools": ["check_missing_values"], "check": "missing_ratio", "numeric": true}
+]

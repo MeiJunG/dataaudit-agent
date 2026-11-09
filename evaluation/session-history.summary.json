@@ -1,0 +1,265 @@
+{
+  "tool_count": 20,
+  "runtime_limits": {
+    "context_tokens": 4096,
+    "max_output_tokens": 256,
+    "temperature": 0
+  },
+  "limits_provenance": "Existing baseline server configuration and app environment",
+  "standard_library_checks": 32,
+  "dependency_tests": 97,
+  "dependency_test_seconds": 9.0,
+  "initial_test_failure": "One unsupported Gradio Dropdown placeholder parameter; removed before app restart",
+  "followups": {
+    "passed": 5,
+    "total": 5,
+    "complete": true,
+    "cases": [
+      {
+        "id": "bar-zh",
+        "success": true,
+        "seconds": 3.55,
+        "initial": "按 region 分组，用 amount 合计画柱状图。",
+        "followup": "改成平均值，其他不变。",
+        "new_charts": [
+          {
+            "arguments": {
+              "chart_type": "bar",
+              "x": "region",
+              "y": "amount",
+              "method": "mean"
+            },
+            "computed": {
+              "version": 1,
+              "chart_type": "bar",
+              "x": "region",
+              "y": "amount",
+              "method": "mean",
+              "frequency": null,
+              "rows": 9,
+              "data": [
+                {
+                  "x": "East",
+                  "y": 120.0
+                },
+                {
+                  "x": "North",
+                  "y": 270.0
+                },
+                {
+                  "x": "West",
+                  "y": 53.333333333333336
+                }
+              ],
+              "plotted_rows": 9,
+              "excluded_x_rows": 0,
+              "excluded_metric_rows": 1,
+              "note": "Duplicate rows are retained. Missing/invalid x values are excluded. Numeric aggregates exclude missing/invalid/infinite y; all-invalid groups have null values. count means all rows per group, not non-null y. "
+            }
+          }
+        ]
+      },
+      {
+        "id": "bar-en",
+        "success": true,
+        "seconds": 3.204,
+        "initial": "Draw a bar chart of total amount by department.",
+        "followup": "Keep the same fields and chart, but use the average instead.",
+        "new_charts": [
+          {
+            "arguments": {
+              "chart_type": "bar",
+              "x": "department",
+              "y": "amount",
+              "method": "mean",
+              "frequency": "month"
+            },
+            "computed": {
+              "version": 1,
+              "chart_type": "bar",
+              "x": "department",
+              "y": "amount",
+              "method": "mean",
+              "frequency": null,
+              "rows": 9,
+              "data": [
+                {
+                  "x": "Operations",
+                  "y": 270.0
+                },
+                {
+                  "x": "Sales",
+                  "y": 120.0
+                },
+                {
+                  "x": "Support",
+                  "y": 53.333333333333336
+                }
+              ],
+              "plotted_rows": 9,
+              "excluded_x_rows": 0,
+              "excluded_metric_rows": 1,
+              "note": "Duplicate rows are retained. Missing/invalid x values are excluded. Numeric aggregates exclude missing/invalid/infinite y; all-invalid groups have null values. count means all rows per group, not non-null y. "
+            }
+          }
+        ]
+      },
+      {
+        "id": "line-zh",
+        "success": true,
+        "seconds": 4.854,
+        "initial": "按 order_date 每天汇总 amount 合计，画折线图。",
+        "followup": "改成按月，其他不变。",
+        "new_charts": [
+          {
+            "arguments": {
+              "chart_type": "line",
+              "x": "order_date",
+              "y": "amount",
+              "method": "sum",
+              "frequency": "month"
+            },
+            "computed": {
+              "version": 1,
+              "chart_type": "line",
+              "x": "order_date",
+              "y": "amount",
+              "method": "sum",
+              "frequency": "month",
+              "rows": 9,
+              "data": [
+                {
+                  "x": "2026-10-01",
+                  "y": 760.0
+                }
+              ],
+              "plotted_rows": 8,
+              "excluded_x_rows": 1,
+              "excluded_metric_rows": 1,
+              "note": "Duplicate rows are retained. Missing/invalid x values are excluded. Numeric aggregates exclude missing/invalid/infinite y; all-invalid groups have null values. count means all rows per group, not non-null y. Dates use UTC; weeks start Monday. Only observed periods are returned; a line joins observed points and does not imply measurements between them."
+            }
+          }
+        ]
+      },
+      {
+        "id": "line-en",
+        "success": true,
+        "seconds": 3.354,
+        "initial": "Draw a daily line chart of total amount by order_date.",
+        "followup": "Make it monthly instead, keeping the metric and sum.",
+        "new_charts": [
+          {
+            "arguments": {
+              "chart_type": "line",
+              "x": "order_date",
+              "y": "amount",
+              "method": "sum",
+              "frequency": "month"
+            },
+            "computed": {
+              "version": 1,
+              "chart_type": "line",
+              "x": "order_date",
+              "y": "amount",
+              "method": "sum",
+              "frequency": "month",
+              "rows": 9,
+              "data": [
+                {
+                  "x": "2026-10-01",
+                  "y": 760.0
+                }
+              ],
+              "plotted_rows": 8,
+              "excluded_x_rows": 1,
+              "excluded_metric_rows": 1,
+              "note": "Duplicate rows are retained. Missing/invalid x values are excluded. Numeric aggregates exclude missing/invalid/infinite y; all-invalid groups have null values. count means all rows per group, not non-null y. Dates use UTC; weeks start Monday. Only observed periods are returned; a line joins observed points and does not imply measurements between them."
+            }
+          }
+        ]
+      }
+    ],
+    "restore_and_branch": {
+      "success": true,
+      "new_charts": [
+        {
+          "arguments": {
+            "chart_type": "bar",
+            "x": "region",
+            "y": "amount",
+            "method": "mean"
+          },
+          "computed": {
+            "version": 1,
+            "chart_type": "bar",
+            "x": "region",
+            "y": "amount",
+            "method": "mean",
+            "frequency": null,
+            "rows": 9,
+            "data": [
+              {
+                "x": "East",
+                "y": 120.0
+              },
+              {
+                "x": "North",
+                "y": 270.0
+              },
+              {
+                "x": "West",
+                "y": 53.333333333333336
+              }
+            ],
+            "plotted_rows": 9,
+            "excluded_x_rows": 0,
+            "excluded_metric_rows": 1,
+            "note": "Duplicate rows are retained. Missing/invalid x values are excluded. Numeric aggregates exclude missing/invalid/infinite y; all-invalid groups have null values. count means all rows per group, not non-null y. "
+          }
+        }
+      ]
+    },
+    "fresh_keeps_archive": true,
+    "dataset_reset": true,
+    "separate_session_empty": true,
+    "clear_reset": true
+  },
+  "report_restore": {
+    "report_after_chart": true,
+    "exact_report_restored": true,
+    "report_characters": 940,
+    "scope": "Live model calls and report download/restore callbacks; not browser rendering"
+  },
+  "chart_regression": {
+    "cases": [
+      {
+        "chart_type": "bar",
+        "success": true
+      },
+      {
+        "chart_type": "histogram",
+        "success": true
+      },
+      {
+        "chart_type": "line",
+        "success": true
+      }
+    ]
+  },
+  "consistency_regression": [
+    {
+      "tool": "check_text_quality",
+      "success": true
+    },
+    {
+      "tool": "check_required_if",
+      "success": true
+    },
+    {
+      "tool": "check_date_order",
+      "success": true
+    }
+  ],
+  "scope": "Synthetic development tasks, no-context 50-task result is earlier evidence; server callbacks verified, browser rendering not verified",
+  "default_and_candidate_model_processes_retained": true
+}

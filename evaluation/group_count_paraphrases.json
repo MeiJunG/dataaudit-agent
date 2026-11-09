@@ -1,0 +1,4 @@
+[
+  {"id": "count-paraphrase-en", "dataset": "office", "question": "How many entries with a filled-in status does each region have? Give separate counts for each region.", "checks": ["group_count"]},
+  {"id": "count-paraphrase-zh", "dataset": "office", "question": "按地区分别统计 status 非空的记录数。", "checks": ["group_count"]}
+]

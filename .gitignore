@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+data/
+results/
+outputs/
+models/
+*.gguf
+llama.cpp/
+build/
+*.pid
+*.log
+
+
+.DS_Store
+._*
+
+# local deploy helper (contains server address)
+sync_staging.sh

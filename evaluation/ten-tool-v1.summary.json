@@ -1,0 +1,231 @@
+{
+  "suite": "ten-tool-synthetic-v1",
+  "scorer_revision": 2,
+  "tasks_file": "expanded_tasks.json",
+  "model": "qwen2.5-7b-instruct",
+  "scope": "Computed tool evidence and termination; generated prose accuracy is not automatically scored.",
+  "max_steps": 3,
+  "complete": true,
+  "passed": 24,
+  "completed": 24,
+  "total": 24,
+  "seconds": 27.747,
+  "paraphrases": {
+    "scorer_revision": 2,
+    "tasks_file": "group_count_paraphrases.json",
+    "max_steps": 3,
+    "complete": true,
+    "passed": 2,
+    "completed": 2,
+    "total": 2,
+    "seconds": 2.427
+  },
+  "covered_tools": [
+    "analyze_distribution",
+    "check_correlations",
+    "check_duplicates",
+    "check_missing_values",
+    "compare_groups",
+    "detect_outliers",
+    "generate_quality_report",
+    "inspect_date_column",
+    "inspect_schema",
+    "validate_data_types"
+  ],
+  "tasks": [
+    {
+      "id": "schema-en",
+      "success": true,
+      "seconds": 1.37,
+      "checks_passed": {
+        "schema": true
+      }
+    },
+    {
+      "id": "schema-zh",
+      "success": true,
+      "seconds": 2.157,
+      "checks_passed": {
+        "schema": true
+      }
+    },
+    {
+      "id": "missing-en",
+      "success": true,
+      "seconds": 0.917,
+      "checks_passed": {
+        "missing": true
+      }
+    },
+    {
+      "id": "missing-zh",
+      "success": true,
+      "seconds": 1.133,
+      "checks_passed": {
+        "missing": true
+      }
+    },
+    {
+      "id": "duplicates-en",
+      "success": true,
+      "seconds": 0.653,
+      "checks_passed": {
+        "duplicates": true
+      }
+    },
+    {
+      "id": "duplicates-region",
+      "success": true,
+      "seconds": 0.81,
+      "checks_passed": {
+        "region_duplicates": true
+      }
+    },
+    {
+      "id": "outliers-en",
+      "success": true,
+      "seconds": 1.514,
+      "checks_passed": {
+        "outliers": true
+      }
+    },
+    {
+      "id": "outliers-zh",
+      "success": true,
+      "seconds": 1.062,
+      "checks_passed": {
+        "outliers": true
+      }
+    },
+    {
+      "id": "distribution-numeric",
+      "success": true,
+      "seconds": 0.89,
+      "checks_passed": {
+        "amount_distribution": true
+      }
+    },
+    {
+      "id": "distribution-category",
+      "success": true,
+      "seconds": 0.839,
+      "checks_passed": {
+        "status_distribution": true
+      }
+    },
+    {
+      "id": "types-en",
+      "success": true,
+      "seconds": 0.837,
+      "checks_passed": {
+        "types": true
+      }
+    },
+    {
+      "id": "types-zh",
+      "success": true,
+      "seconds": 0.881,
+      "checks_passed": {
+        "types": true
+      }
+    },
+    {
+      "id": "correlation-en",
+      "success": true,
+      "seconds": 1.134,
+      "checks_passed": {
+        "correlation": true
+      }
+    },
+    {
+      "id": "correlation-zh",
+      "success": true,
+      "seconds": 1.123,
+      "checks_passed": {
+        "correlation": true
+      }
+    },
+    {
+      "id": "group-mean-en",
+      "success": true,
+      "seconds": 1.192,
+      "checks_passed": {
+        "group_mean": true
+      }
+    },
+    {
+      "id": "group-mean-zh",
+      "success": true,
+      "seconds": 1.277,
+      "checks_passed": {
+        "group_mean": true
+      }
+    },
+    {
+      "id": "group-sum",
+      "success": true,
+      "seconds": 1.133,
+      "checks_passed": {
+        "group_sum": true
+      }
+    },
+    {
+      "id": "group-count",
+      "success": true,
+      "seconds": 1.126,
+      "checks_passed": {
+        "group_count": true
+      }
+    },
+    {
+      "id": "dates-en",
+      "success": true,
+      "seconds": 1.113,
+      "checks_passed": {
+        "dates": true
+      }
+    },
+    {
+      "id": "dates-zh",
+      "success": true,
+      "seconds": 0.967,
+      "checks_passed": {
+        "dates": true
+      }
+    },
+    {
+      "id": "report-en",
+      "success": true,
+      "seconds": 1.333,
+      "checks_passed": {
+        "report": true
+      }
+    },
+    {
+      "id": "report-zh",
+      "success": true,
+      "seconds": 1.426,
+      "checks_passed": {
+        "report": true
+      }
+    },
+    {
+      "id": "multi-missing-duplicates",
+      "success": true,
+      "seconds": 1.249,
+      "checks_passed": {
+        "missing": true,
+        "duplicates": true
+      }
+    },
+    {
+      "id": "multi-types-dates",
+      "success": true,
+      "seconds": 1.611,
+      "checks_passed": {
+        "types": true,
+        "dates": true
+      }
+    }
+  ]
+}

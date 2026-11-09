@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-07",
+  "url": "http://127.0.0.1:7864/",
+  "checks": {
+    "fiveDomainMenuOptions": true,
+    "starterQuestionFilledWithoutInference": true,
+    "gradeMean74Observed": true,
+    "stockPriceChartInsteadOfRowCount": true,
+    "stockPoints": 45,
+    "missingPriceRemainsNull": true,
+    "stockJsonDownloadedAndVerified": true,
+    "currencyPercentUnitDateWarningsVisible": true,
+    "worksheetChangeClearsOldExport": true,
+    "mobileMenuWorks": true
+  },
+  "viewports": [
+    {
+      "height": 900,
+      "menu": 128,
+      "pageWidth": 1280,
+      "width": 1280
+    },
+    {
+      "height": 844,
+      "menu": {
+        "left": 38,
+        "right": 166
+      },
+      "pageWidth": 390,
+      "width": 390
+    }
+  ],
+  "consoleErrors": [],
+  "screenshots": [
+    "docs/images/domain-workbench.jpg",
+    "docs/images/domain-mobile.jpg"
+  ],
+  "scope": "Real browser spot checks and actual JSON download. Fictional prices include calendar days and are not market data."
+}

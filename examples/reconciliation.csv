@@ -1,0 +1,9 @@
+order_date,amount,recorded_amount,status
+2026-10-01,100,100,completed
+2026-10-02,200,199,completed
+2026-10-03,0,0,pending
+2026-10-04,-50,-50,refunded
+2026-10-05,120,,pending
+2026-10-06,300,300.004,completed
+not-a-date,400,400,completed
+2026-10-08,,,pending

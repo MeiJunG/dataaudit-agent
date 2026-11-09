@@ -1,0 +1,9 @@
+order_id,region,status,amount
+A001,North,completed,100
+A002,North,pending,200
+A002,South,completed,150
+A003,South,cancelled,-50
+A004,West,unknown,300
+A005,West,completed,
+,North,completed,80
+A006,West,Completed,120

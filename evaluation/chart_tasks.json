@@ -1,0 +1,66 @@
+[
+  {
+    "id": "chart-region-sum-zh",
+    "dataset": "office",
+    "question": "按 region 分组，用 amount 合计画柱状图。",
+    "checks": [
+      "chart_region_sum"
+    ]
+  },
+  {
+    "id": "chart-region-sum-en",
+    "dataset": "office",
+    "question": "Draw a bar chart of total amount by region.",
+    "checks": [
+      "chart_region_sum"
+    ]
+  },
+  {
+    "id": "chart-region-count-zh",
+    "dataset": "office",
+    "question": "画 region 的订单记录数柱状图，按行计数。",
+    "checks": [
+      "chart_region_count"
+    ]
+  },
+  {
+    "id": "chart-region-count-en",
+    "dataset": "office",
+    "question": "Plot a bar chart of row counts for each region.",
+    "checks": [
+      "chart_region_count"
+    ]
+  },
+  {
+    "id": "chart-histogram-zh",
+    "dataset": "office",
+    "question": "画 amount 的直方图。",
+    "checks": [
+      "chart_histogram"
+    ]
+  },
+  {
+    "id": "chart-histogram-en",
+    "dataset": "office",
+    "question": "Plot a histogram of amount.",
+    "checks": [
+      "chart_histogram"
+    ]
+  },
+  {
+    "id": "chart-daily-zh",
+    "dataset": "office",
+    "question": "按 order_date 每天汇总 amount 合计，画折线图。",
+    "checks": [
+      "chart_daily_sum"
+    ]
+  },
+  {
+    "id": "chart-daily-en",
+    "dataset": "office",
+    "question": "Draw a daily line chart of total amount by order_date.",
+    "checks": [
+      "chart_daily_sum"
+    ]
+  }
+]

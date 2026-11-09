@@ -1,0 +1,1706 @@
+{
+  "scope": "Synthetic development prompts used during debugging, not held-out reliability.",
+  "tool_count": {
+    "base": 25,
+    "reference_optional": 1
+  },
+  "runs": [
+    {
+      "run": "generic-first",
+      "complete": false,
+      "passed_observed": 1,
+      "cases_observed": 2,
+      "raw_server_record": "/hy-tmp/dataaudit-agent/results/generic-first.json",
+      "failures": [
+        {
+          "id": "autonomous-header",
+          "question": "先检查 Measure_41 的表头在哪一行，再计算其中 Metric B 的合计。",
+          "success": false,
+          "seconds": 2.479,
+          "trace": [
+            {
+              "tool": "inspect_sheet_layout",
+              "arguments": {
+                "sheet": "Measure_41",
+                "rows": 8
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "tables",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 350.68
+              },
+              "data_origin": {
+                "sha256": "fc77e3594a8cb53c7cfbadb1209ececbf8208817664f9b280a3eb702a6ad7270",
+                "sheet": "Measure_41",
+                "header_row": 1
+              },
+              "computed": {
+                "kind": "sheet_layout",
+                "origin": {
+                  "sha256": "fc77e3594a8cb53c7cfbadb1209ececbf8208817664f9b280a3eb702a6ad7270",
+                  "sheet": "Measure_41",
+                  "header_row": 1
+                },
+                "header_candidates": [
+                  {
+                    "header_row": 3,
+                    "labels": [
+                      "Segment α",
+                      "Batch β",
+                      "Metric A",
+                      "Metric B",
+                      "Flag"
+                    ],
+                    "nonempty_cells": 5
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "aggregate_rows",
+              "arguments": {
+                "metric": "sum",
+                "value_column": "Metric B",
+                "group_by": [],
+                "conditions": [
+                  {
+                    "column": "Metric B",
+                    "operator": "is_null",
+                    "value": null
+                  }
+                ],
+                "match": "all",
+                "sheet": "Measure_41",
+                "header_row": 1
+              },
+              "status": "error",
+              "computed": {},
+              "error": "{\"error\": \"Unknown columns: Metric B. Inspect the worksheet first.\"}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "generic-second",
+      "complete": true,
+      "passed_observed": 5,
+      "cases_observed": 8,
+      "raw_server_record": "/hy-tmp/dataaudit-agent/results/generic-second.json",
+      "failures": [
+        {
+          "id": "autonomous-header",
+          "question": "先检查 Measure_41 的表头在哪一行，再计算其中 Metric B 的合计。",
+          "success": false,
+          "seconds": 2.631,
+          "trace": [
+            {
+              "tool": "inspect_sheet_layout",
+              "arguments": {
+                "sheet": "Measure_41",
+                "rows": 8
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "tables",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 355.82
+              },
+              "data_origin": {
+                "sha256": "56b4cf64b33f871433f9951f09de11930ca2095079fbeff5983f4a14a232998d",
+                "sheet": "Measure_41",
+                "header_row": null
+              },
+              "computed": {
+                "kind": "sheet_layout",
+                "origin": {
+                  "sha256": "56b4cf64b33f871433f9951f09de11930ca2095079fbeff5983f4a14a232998d",
+                  "sheet": "Measure_41",
+                  "header_row": null
+                },
+                "header_candidates": [
+                  {
+                    "header_row": 3,
+                    "labels": [
+                      "Segment α",
+                      "Batch β",
+                      "Metric A",
+                      "Metric B",
+                      "Flag"
+                    ],
+                    "nonempty_cells": 5
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "aggregate_rows",
+              "arguments": {
+                "metric": "sum",
+                "value_column": "Metric B",
+                "sheet": "Measure_41",
+                "header_row": 1
+              },
+              "status": "error",
+              "computed": {},
+              "error": "{\"error\": \"Unknown columns: Metric B. Inspect the worksheet first.\"}"
+            }
+          ]
+        },
+        {
+          "id": "or-query",
+          "question": "查找 Flag 等于 hold 或 Metric A 缺失的记录，两个条件是或关系。",
+          "success": false,
+          "seconds": 2.239,
+          "trace": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "Flag",
+                "operator": "eq",
+                "value": "hold",
+                "metric_column": "Metric A",
+                "method": "count"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 401.65
+              },
+              "computed": {
+                "matched_rows": 2,
+                "rows": 6
+              }
+            }
+          ]
+        },
+        {
+          "id": "multi-group",
+          "question": "按 Segment α 和 Batch β 两个字段一起分组，统计每组记录数，包含 Metric A 缺失的行。",
+          "success": false,
+          "seconds": 1.926,
+          "trace": [
+            {
+              "tool": "aggregate_rows",
+              "arguments": {
+                "group_by": [
+                  "Segment α",
+                  "Batch β"
+                ],
+                "conditions": [
+                  {
+                    "column": "Flag",
+                    "operator": "is_null",
+                    "value": "Metric A"
+                  }
+                ],
+                "match": "all",
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "tables",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 358.79
+              },
+              "data_origin": {
+                "sha256": "56b4cf64b33f871433f9951f09de11930ca2095079fbeff5983f4a14a232998d",
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "computed": {
+                "kind": "table_aggregate",
+                "origin": {
+                  "sha256": "56b4cf64b33f871433f9951f09de11930ca2095079fbeff5983f4a14a232998d",
+                  "sheet": "Measure_41",
+                  "header_row": 3
+                },
+                "metric": "count",
+                "value_column": null,
+                "group_by": [
+                  "Segment α",
+                  "Batch β"
+                ],
+                "matched_rows": 0,
+                "groups": [],
+                "conditions": [
+                  {
+                    "column": "Flag",
+                    "operator": "is_null",
+                    "value": "Metric A",
+                    "matched_rows": 0,
+                    "missing_values": 0,
+                    "invalid_numeric_values": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "generic-third",
+      "complete": true,
+      "passed_observed": 6,
+      "cases_observed": 8,
+      "raw_server_record": "/hy-tmp/dataaudit-agent/results/generic-third.json",
+      "failures": [
+        {
+          "id": "autonomous-header",
+          "question": "先检查 Measure_41 的表头在哪一行，再计算其中 Metric B 的合计。",
+          "success": false,
+          "seconds": 2.982,
+          "trace": [
+            {
+              "tool": "inspect_sheet_layout",
+              "arguments": {
+                "sheet": "Measure_41",
+                "rows": 8
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "tables",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 352.06
+              },
+              "data_origin": {
+                "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                "sheet": "Measure_41",
+                "header_row": null
+              },
+              "computed": {
+                "kind": "sheet_layout",
+                "origin": {
+                  "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                  "sheet": "Measure_41",
+                  "header_row": null
+                },
+                "header_candidates": [
+                  {
+                    "header_row": 3,
+                    "labels": [
+                      "Segment α",
+                      "Batch β",
+                      "Metric A",
+                      "Metric B",
+                      "Flag"
+                    ],
+                    "nonempty_cells": 5
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "query_rows",
+              "arguments": {
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "status": "ok",
+              "data_origin": {
+                "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "computed": {
+                "kind": "row_query",
+                "origin": {
+                  "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                  "sheet": "Measure_41",
+                  "header_row": 3
+                },
+                "matched_rows": 6,
+                "columns": [
+                  "Segment α",
+                  "Batch β",
+                  "Metric A",
+                  "Metric B",
+                  "Flag"
+                ],
+                "conditions": [],
+                "rows": [
+                  {
+                    "table_row": 1,
+                    "values": {
+                      "Segment α": "L",
+                      "Batch β": "u",
+                      "Metric A": 10,
+                      "Metric B": 2,
+                      "Flag": "ok"
+                    }
+                  },
+                  {
+                    "table_row": 2,
+                    "values": {
+                      "Segment α": "L",
+                      "Batch β": "u",
+                      "Metric A": 20,
+                      "Metric B": 4,
+                      "Flag": "hold"
+                    }
+                  },
+                  {
+                    "table_row": 3,
+                    "values": {
+                      "Segment α": "L",
+                      "Batch β": "v",
+                      "Metric A": 30,
+                      "Metric B": 0,
+                      "Flag": "ok"
+                    }
+                  },
+                  {
+                    "table_row": 4,
+                    "values": {
+                      "Segment α": "R",
+                      "Batch β": "u",
+                      "Metric A": null,
+                      "Metric B": 5,
+                      "Flag": "ok"
+                    }
+                  },
+                  {
+                    "table_row": 5,
+                    "values": {
+                      "Segment α": "R",
+                      "Batch β": "v",
+                      "Metric A": "bad",
+                      "Metric B": 2,
+                      "Flag": "hold"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "aggregate_rows",
+              "arguments": {
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "status": "ok",
+              "data_origin": {
+                "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "computed": {
+                "kind": "table_aggregate",
+                "origin": {
+                  "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                  "sheet": "Measure_41",
+                  "header_row": 3
+                },
+                "metric": "count",
+                "value_column": null,
+                "group_by": [],
+                "matched_rows": 6,
+                "summary": {
+                  "rows": 6,
+                  "value": 6,
+                  "valid_values": 6,
+                  "missing_values": 0,
+                  "invalid_values": 0
+                },
+                "conditions": []
+              }
+            }
+          ]
+        },
+        {
+          "id": "derived-product",
+          "question": "将 Metric A 与 Metric B 逐行相乘，再按 Segment α 分组计算这些乘积的合计，不修改原表。",
+          "success": false,
+          "seconds": 2.481,
+          "trace": [
+            {
+              "tool": "calculate_row_metric",
+              "arguments": {
+                "columns": [
+                  "Segment α",
+                  "Metric A",
+                  "Metric B"
+                ],
+                "operation": "product",
+                "group_by": [
+                  "Segment α"
+                ],
+                "aggregation": "sum",
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "tables",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 375.97
+              },
+              "data_origin": {
+                "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "computed": {
+                "kind": "row_metric",
+                "origin": {
+                  "sha256": "c6c03a487c495377e8d18a681c69566a603f9ac2427ce68aa8d581e96a350184",
+                  "sheet": "Measure_41",
+                  "header_row": 3
+                },
+                "group_by": [
+                  "Segment α"
+                ],
+                "matched_rows": 6,
+                "summary": {
+                  "valid_results": 0,
+                  "missing_input_rows": 1,
+                  "invalid_input_rows": 5,
+                  "zero_denominator_rows": 0,
+                  "nonfinite_result_rows": 0,
+                  "sum": null,
+                  "mean": null,
+                  "min": null,
+                  "max": null
+                },
+                "groups": [
+                  {
+                    "keys": {
+                      "Segment α": "L"
+                    },
+                    "value": null,
+                    "rows": 3
+                  },
+                  {
+                    "keys": {
+                      "Segment α": "R"
+                    },
+                    "value": null,
+                    "rows": 3
+                  }
+                ],
+                "operation": "product",
+                "columns": [
+                  "Segment α",
+                  "Metric A",
+                  "Metric B"
+                ],
+                "weights": null,
+                "conditions": [],
+                "rows": []
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "generic-final",
+      "complete": true,
+      "passed_observed": 7,
+      "cases_observed": 8,
+      "raw_server_record": "/hy-tmp/dataaudit-agent/results/generic-final.json",
+      "failures": [
+        {
+          "id": "ratio",
+          "question": "逐行计算 Metric A 除以 Metric B，按计算值降序；说明缺失、非法输入和除零分别排除了多少行。",
+          "success": false,
+          "seconds": 3.329,
+          "trace": [
+            {
+              "tool": "calculate_row_metric",
+              "arguments": {
+                "columns": [
+                  "Metric A",
+                  "Metric B"
+                ],
+                "operation": "ratio",
+                "group_by": [],
+                "aggregation": "mean",
+                "conditions": [],
+                "match": "all",
+                "sort": "descending",
+                "limit": 0,
+                "sheet": "Measure_41",
+                "header_row": 3
+              },
+              "status": "error",
+              "tool_routing": {
+                "family": "tables",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 357.29
+              },
+              "computed": {},
+              "error": "{\"error\": \"Preview limit must be 1–20.\", \"observed_header_candidates\": {}, \"next_action\": \"Revise the arguments using actual columns/candidate header_row. Do not repeat the failed call.\"}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "generic-v5",
+      "complete": true,
+      "passed_observed": 2,
+      "cases_observed": 8,
+      "raw_server_record": "/hy-tmp/dataaudit-agent/results/generic-v5.json",
+      "failures": [
+        {
+          "id": "autonomous-header",
+          "question": "先检查 Measure_41 的表头在哪一行，再计算其中 Metric B 的合计。",
+          "success": false,
+          "seconds": 3.23,
+          "trace": [
+            {
+              "tool": "inspect_schema",
+              "arguments": {},
+              "status": "ok",
+              "tool_routing": {
+                "family": "rules",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 362.18
+              },
+              "computed": {
+                "columns": 0,
+                "rows": 0
+              }
+            },
+            {
+              "tool": "validate_data_types",
+              "arguments": {},
+              "status": "ok",
+              "computed": {}
+            },
+            {
+              "tool": "compare_columns",
+              "arguments": {
+                "left_column": "Metric B",
+                "right_column": "Metric B"
+              },
+              "status": "error",
+              "computed": {},
+              "error": "{\"error\": \"Unknown column(s): Metric B, Metric B\"}"
+            }
+          ]
+        },
+        {
+          "id": "and-query",
+          "question": "找出 Metric A 不低于20 且 Flag 等于 ok 的记录，只显示 Metric A、Flag，按 Metric A 降序。",
+          "success": false,
+          "seconds": 3.947,
+          "trace": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "Metric A",
+                "operator": "ge",
+                "value": 20,
+                "metric_column": "Metric A",
+                "method": "count"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 365.09
+              },
+              "computed": {
+                "matched_rows": 3,
+                "rows": 6
+              }
+            },
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "Flag",
+                "operator": "eq",
+                "value": "ok",
+                "metric_column": "Metric A",
+                "method": "count"
+              },
+              "status": "ok",
+              "computed": {
+                "matched_rows": 4,
+                "rows": 6
+              }
+            },
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "Metric A",
+                "operator": "ge",
+                "value": 20,
+                "metric_column": "Metric A",
+                "method": "mean"
+              },
+              "status": "ok",
+              "computed": {
+                "matched_rows": 3,
+                "rows": 6
+              }
+            },
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "Flag",
+                "operator": "eq",
+                "value": "ok",
+                "metric_column": "Metric A",
+                "method": "mean"
+              },
+              "status": "ok",
+              "computed": {
+                "matched_rows": 4,
+                "rows": 6
+              }
+            }
+          ]
+        },
+        {
+          "id": "or-query",
+          "question": "查找 Flag 等于 hold 或 Metric A 缺失的记录，两个条件是或关系。",
+          "success": false,
+          "seconds": 1.976,
+          "trace": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "Flag",
+                "operator": "eq",
+                "value": "hold",
+                "metric_column": "Metric A",
+                "method": "count"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 363.21
+              },
+              "computed": {
+                "matched_rows": 2,
+                "rows": 6
+              }
+            }
+          ]
+        },
+        {
+          "id": "multi-group",
+          "question": "按 Segment α 和 Batch β 两个字段一起分组，统计每组记录数，包含 Metric A 缺失的行。",
+          "success": false,
+          "seconds": 1.727,
+          "trace": [
+            {
+              "tool": "compare_groups",
+              "arguments": {
+                "group_column": "Segment α",
+                "metric_column": "Batch β",
+                "method": "count"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "groups",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 348.76
+              },
+              "computed": {
+                "groups": [
+                  {
+                    "group": "L",
+                    "rows": 3,
+                    "metric_non_null": 3,
+                    "count": 3
+                  },
+                  {
+                    "group": "R",
+                    "rows": 3,
+                    "metric_non_null": 3,
+                    "count": 3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "derived-product",
+          "question": "将 Metric A 与 Metric B 逐行相乘，再按 Segment α 分组计算这些乘积的合计，不修改原表。",
+          "success": false,
+          "seconds": 3.127,
+          "trace": [
+            {
+              "tool": "compare_groups",
+              "arguments": {
+                "group_column": "Segment α",
+                "metric_column": "Metric A * Metric B",
+                "method": "sum"
+              },
+              "status": "error",
+              "tool_routing": {
+                "family": "groups",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 374.52
+              },
+              "computed": {},
+              "error": "{\"error\": \"Unknown column(s): Metric A * Metric B\", \"available_columns\": [\"Segment α\", \"Batch β\", \"Metric A\", \"Metric B\", \"Flag\"], \"hint\": \"metric_column is a real data field. To count values, use method=count; keep the actual metric column name.\"}"
+            },
+            {
+              "tool": "compare_groups",
+              "arguments": {
+                "group_column": "Segment α",
+                "metric_column": "Metric B",
+                "method": "sum"
+              },
+              "status": "ok",
+              "computed": {
+                "groups": [
+                  {
+                    "group": "R",
+                    "rows": 3,
+                    "metric_non_null": 3,
+                    "sum": 15.0
+                  },
+                  {
+                    "group": "L",
+                    "rows": 3,
+                    "metric_non_null": 3,
+                    "sum": 6.0
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "ratio",
+          "question": "逐行计算 Metric A 除以 Metric B，按计算值降序；说明缺失、非法输入和除零分别排除了多少行。",
+          "success": false,
+          "seconds": 4.184,
+          "trace": [
+            {
+              "tool": "validate_data_types",
+              "arguments": {},
+              "status": "ok",
+              "tool_routing": {
+                "family": "rules",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 420.0
+              },
+              "computed": {}
+            },
+            {
+              "tool": "check_missing_values",
+              "arguments": {},
+              "status": "ok",
+              "computed": {
+                "rows": 6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "generic-hierarchy",
+      "complete": true,
+      "passed_observed": 8,
+      "cases_observed": 8,
+      "raw_server_record": "/hy-tmp/dataaudit-agent/results/generic-hierarchy.json",
+      "failures": []
+    }
+  ],
+  "final_cases": [
+    {
+      "id": "discover",
+      "question": "这个文件里实际有哪些工作表？",
+      "success": true,
+      "seconds": 1.375,
+      "trace": [
+        {
+          "tool": "list_workbook_sheets",
+          "arguments": {
+            "offset": 0,
+            "limit": 20
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 390.26,
+            "mode_response_format": "tool_call"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": null,
+            "header_row": 1
+          },
+          "computed": {
+            "kind": "workbook_sheets",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": null,
+              "header_row": 1
+            },
+            "sheets": [
+              "empty-7B",
+              "Measure_41",
+              "Lookup-Z"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "autonomous-header",
+      "question": "先检查 Measure_41 的表头在哪一行，再计算其中 Metric B 的合计。",
+      "success": true,
+      "seconds": 2.078,
+      "trace": [
+        {
+          "tool": "inspect_sheet_layout",
+          "arguments": {
+            "sheet": "Measure_41",
+            "rows": 8
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 369.22,
+            "mode_response_format": "tool_call"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": null
+          },
+          "computed": {
+            "kind": "sheet_layout",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": null
+            },
+            "header_candidates": [
+              {
+                "header_row": 3,
+                "labels": [
+                  "Segment α",
+                  "Batch β",
+                  "Metric A",
+                  "Metric B",
+                  "Flag"
+                ],
+                "nonempty_cells": 5
+              }
+            ]
+          }
+        },
+        {
+          "tool": "aggregate_rows",
+          "arguments": {
+            "metric": "sum",
+            "value_column": "Metric B",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "ok",
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "table_aggregate",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "metric": "sum",
+            "value_column": "Metric B",
+            "group_by": [],
+            "matched_rows": 6,
+            "summary": {
+              "rows": 6,
+              "value": 21.0,
+              "valid_values": 6,
+              "missing_values": 0,
+              "invalid_values": 0
+            },
+            "conditions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "and-query",
+      "question": "找出 Metric A 不低于20 且 Flag 等于 ok 的记录，只显示 Metric A、Flag，按 Metric A 降序。",
+      "success": true,
+      "seconds": 3.13,
+      "trace": [
+        {
+          "tool": "query_rows",
+          "arguments": {
+            "columns": [
+              "Metric A",
+              "Flag"
+            ],
+            "conditions": [
+              {
+                "column": "Metric A",
+                "operator": "ge",
+                "value": 20
+              },
+              {
+                "column": "Flag",
+                "operator": "eq",
+                "value": "ok"
+              }
+            ],
+            "match": "all",
+            "sort_by": "Metric A",
+            "ascending": false,
+            "limit": 20,
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 169.53,
+            "mode_response_format": "exact_text_label"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "row_query",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "matched_rows": 2,
+            "columns": [
+              "Metric A",
+              "Flag"
+            ],
+            "conditions": [
+              {
+                "column": "Metric A",
+                "operator": "ge",
+                "value": 20,
+                "matched_rows": 3,
+                "missing_values": 1,
+                "invalid_numeric_values": 1
+              },
+              {
+                "column": "Flag",
+                "operator": "eq",
+                "value": "ok",
+                "matched_rows": 4,
+                "missing_values": 0,
+                "invalid_numeric_values": 0
+              }
+            ],
+            "rows": [
+              {
+                "table_row": 6,
+                "values": {
+                  "Metric A": 40,
+                  "Flag": "ok"
+                }
+              },
+              {
+                "table_row": 3,
+                "values": {
+                  "Metric A": 30,
+                  "Flag": "ok"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "or-query",
+      "question": "查找 Flag 等于 hold 或 Metric A 缺失的记录，两个条件是或关系。",
+      "success": true,
+      "seconds": 2.642,
+      "trace": [
+        {
+          "tool": "query_rows",
+          "arguments": {
+            "columns": [
+              "Flag",
+              "Metric A"
+            ],
+            "conditions": [
+              {
+                "column": "Flag",
+                "operator": "eq",
+                "value": "hold"
+              },
+              {
+                "column": "Metric A",
+                "operator": "is_null"
+              }
+            ],
+            "match": "any",
+            "limit": 20
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 390.05,
+            "mode_response_format": "tool_call"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "row_query",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "matched_rows": 3,
+            "columns": [
+              "Flag",
+              "Metric A"
+            ],
+            "conditions": [
+              {
+                "column": "Flag",
+                "operator": "eq",
+                "value": "hold",
+                "matched_rows": 2,
+                "missing_values": 0,
+                "invalid_numeric_values": 0
+              },
+              {
+                "column": "Metric A",
+                "operator": "is_null",
+                "value": null,
+                "matched_rows": 1,
+                "missing_values": 1,
+                "invalid_numeric_values": 0
+              }
+            ],
+            "rows": [
+              {
+                "table_row": 2,
+                "values": {
+                  "Flag": "hold",
+                  "Metric A": 20
+                }
+              },
+              {
+                "table_row": 4,
+                "values": {
+                  "Flag": "ok",
+                  "Metric A": null
+                }
+              },
+              {
+                "table_row": 5,
+                "values": {
+                  "Flag": "hold",
+                  "Metric A": "bad"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "multi-group",
+      "question": "按 Segment α 和 Batch β 两个字段一起分组，统计每组记录数，包含 Metric A 缺失的行。",
+      "success": true,
+      "seconds": 3.233,
+      "trace": [
+        {
+          "tool": "aggregate_rows",
+          "arguments": {
+            "metric": "count",
+            "group_by": [
+              "Segment α",
+              "Batch β"
+            ],
+            "conditions": [],
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 380.62,
+            "mode_response_format": "tool_call"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "table_aggregate",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "metric": "count",
+            "value_column": null,
+            "group_by": [
+              "Segment α",
+              "Batch β"
+            ],
+            "matched_rows": 6,
+            "groups": [
+              {
+                "keys": {
+                  "Segment α": "L",
+                  "Batch β": "u"
+                },
+                "rows": 2,
+                "value": 2,
+                "valid_values": 2,
+                "missing_values": 0,
+                "invalid_values": 0
+              },
+              {
+                "keys": {
+                  "Segment α": "L",
+                  "Batch β": "v"
+                },
+                "rows": 1,
+                "value": 1,
+                "valid_values": 1,
+                "missing_values": 0,
+                "invalid_values": 0
+              },
+              {
+                "keys": {
+                  "Segment α": "R",
+                  "Batch β": "u"
+                },
+                "rows": 1,
+                "value": 1,
+                "valid_values": 1,
+                "missing_values": 0,
+                "invalid_values": 0
+              },
+              {
+                "keys": {
+                  "Segment α": "R",
+                  "Batch β": "v"
+                },
+                "rows": 2,
+                "value": 2,
+                "valid_values": 2,
+                "missing_values": 0,
+                "invalid_values": 0
+              }
+            ],
+            "conditions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "derived-product",
+      "question": "将 Metric A 与 Metric B 逐行相乘，再按 Segment α 分组计算这些乘积的合计，不修改原表。",
+      "success": true,
+      "seconds": 6.137,
+      "trace": [
+        {
+          "tool": "calculate_row_metric",
+          "arguments": {
+            "columns": [
+              "Segment α",
+              "Metric A",
+              "Metric B"
+            ],
+            "operation": "product",
+            "group_by": [
+              "Segment α"
+            ],
+            "aggregation": "sum",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "error",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 390.66,
+            "mode_response_format": "tool_call"
+          },
+          "computed": {},
+          "error": "{\"error\": \"No finite numeric inputs in Segment α. columns must contain calculation fields only; put categorical grouping fields in group_by.\", \"observed_header_candidates\": {}, \"next_action\": \"Revise the arguments using actual columns/candidate header_row. Do not repeat the failed call.\"}"
+        },
+        {
+          "tool": "calculate_row_metric",
+          "arguments": {
+            "columns": [
+              "Metric A",
+              "Metric B"
+            ],
+            "operation": "product",
+            "group_by": [
+              "Segment α"
+            ],
+            "aggregation": "sum",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "ok",
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "row_metric",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "group_by": [
+              "Segment α"
+            ],
+            "matched_rows": 6,
+            "summary": {
+              "valid_results": 4,
+              "missing_input_rows": 1,
+              "invalid_input_rows": 1,
+              "zero_denominator_rows": 0,
+              "nonfinite_result_rows": 0,
+              "sum": 420.0,
+              "mean": 105.0,
+              "min": 0.0,
+              "max": 320.0
+            },
+            "groups": [
+              {
+                "keys": {
+                  "Segment α": "L"
+                },
+                "value": 100.0,
+                "rows": 3
+              },
+              {
+                "keys": {
+                  "Segment α": "R"
+                },
+                "value": 320.0,
+                "rows": 3
+              }
+            ],
+            "operation": "product",
+            "columns": [
+              "Metric A",
+              "Metric B"
+            ],
+            "weights": null,
+            "conditions": [],
+            "rows": [
+              {
+                "table_row": 1,
+                "value": 20.0
+              },
+              {
+                "table_row": 2,
+                "value": 80.0
+              },
+              {
+                "table_row": 3,
+                "value": 0.0
+              },
+              {
+                "table_row": 6,
+                "value": 320.0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "weighted-metric",
+      "question": "逐行计算 Metric A 与 Metric B 的加权均值，权重分别是0.25和0.75。缺失和非法值不要补零。",
+      "success": true,
+      "seconds": 2.828,
+      "trace": [
+        {
+          "tool": "calculate_row_metric",
+          "arguments": {
+            "columns": [
+              "Metric A",
+              "Metric B"
+            ],
+            "operation": "weighted_mean",
+            "weights": [
+              0.25,
+              0.75
+            ],
+            "aggregation": "mean",
+            "sort": "original",
+            "limit": 20,
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 388.96,
+            "mode_response_format": "tool_call"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "row_metric",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "group_by": [],
+            "matched_rows": 6,
+            "summary": {
+              "valid_results": 4,
+              "missing_input_rows": 1,
+              "invalid_input_rows": 1,
+              "zero_denominator_rows": 0,
+              "nonfinite_result_rows": 0,
+              "sum": 35.5,
+              "mean": 8.875,
+              "min": 4.0,
+              "max": 16.0
+            },
+            "operation": "weighted_mean",
+            "columns": [
+              "Metric A",
+              "Metric B"
+            ],
+            "weights": [
+              0.25,
+              0.75
+            ],
+            "conditions": [],
+            "rows": [
+              {
+                "table_row": 1,
+                "value": 4.0
+              },
+              {
+                "table_row": 2,
+                "value": 8.0
+              },
+              {
+                "table_row": 3,
+                "value": 7.5
+              },
+              {
+                "table_row": 6,
+                "value": 16.0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ratio",
+      "question": "逐行计算 Metric A 除以 Metric B，按计算值降序；说明缺失、非法输入和除零分别排除了多少行。",
+      "success": true,
+      "seconds": 2.737,
+      "trace": [
+        {
+          "tool": "calculate_row_metric",
+          "arguments": {
+            "columns": [
+              "Metric A",
+              "Metric B"
+            ],
+            "operation": "ratio",
+            "sort": "descending",
+            "limit": 20,
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "status": "ok",
+          "tool_routing": {
+            "family": "tables",
+            "mode": "tables",
+            "method": "llm_hierarchical_selector",
+            "duration_ms": 382.0,
+            "mode_response_format": "tool_call"
+          },
+          "data_origin": {
+            "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+            "sheet": "Measure_41",
+            "header_row": 3
+          },
+          "computed": {
+            "kind": "row_metric",
+            "origin": {
+              "sha256": "b0926a77f95d49d5c4edf0ee26901fb77412400e68aec9f6ee25ee63ed49ca20",
+              "sheet": "Measure_41",
+              "header_row": 3
+            },
+            "group_by": [],
+            "matched_rows": 6,
+            "summary": {
+              "valid_results": 3,
+              "missing_input_rows": 1,
+              "invalid_input_rows": 1,
+              "zero_denominator_rows": 1,
+              "nonfinite_result_rows": 0,
+              "sum": 15.0,
+              "mean": 5.0,
+              "min": 5.0,
+              "max": 5.0
+            },
+            "operation": "ratio",
+            "columns": [
+              "Metric A",
+              "Metric B"
+            ],
+            "weights": null,
+            "conditions": [],
+            "rows": [
+              {
+                "table_row": 1,
+                "value": 5.0
+              },
+              {
+                "table_row": 2,
+                "value": 5.0
+              },
+              {
+                "table_row": 6,
+                "value": 5.0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "regressions": {
+    "generic-domain-regression": {
+      "complete": true,
+      "scope": "Synthetic development prompts, computed tool evidence; not held-out reliability or domain certification.",
+      "passed": 10,
+      "total": 11,
+      "cases": [
+        {
+          "id": "grades-mean",
+          "success": true
+        },
+        {
+          "id": "grades-threshold",
+          "success": true
+        },
+        {
+          "id": "grades-chart",
+          "success": false
+        },
+        {
+          "id": "sales-filter",
+          "success": true
+        },
+        {
+          "id": "sales-monthly",
+          "success": true
+        },
+        {
+          "id": "stock-45-days",
+          "success": true
+        },
+        {
+          "id": "inventory-threshold",
+          "success": true
+        },
+        {
+          "id": "inventory-key",
+          "success": true
+        },
+        {
+          "id": "survey-mean",
+          "success": true
+        },
+        {
+          "id": "survey-frequencies",
+          "success": true
+        },
+        {
+          "id": "representation-hints",
+          "success": true
+        }
+      ]
+    },
+    "generic-domain-final": {
+      "complete": true,
+      "scope": "Synthetic development prompts, computed tool evidence; not held-out reliability or domain certification.",
+      "passed": 11,
+      "total": 11,
+      "cases": [
+        {
+          "id": "grades-mean",
+          "success": true
+        },
+        {
+          "id": "grades-threshold",
+          "success": true
+        },
+        {
+          "id": "grades-chart",
+          "success": true
+        },
+        {
+          "id": "sales-filter",
+          "success": true
+        },
+        {
+          "id": "sales-monthly",
+          "success": true
+        },
+        {
+          "id": "stock-45-days",
+          "success": true
+        },
+        {
+          "id": "inventory-threshold",
+          "success": true
+        },
+        {
+          "id": "inventory-key",
+          "success": true
+        },
+        {
+          "id": "survey-mean",
+          "success": true
+        },
+        {
+          "id": "survey-frequencies",
+          "success": true
+        },
+        {
+          "id": "representation-hints",
+          "success": true
+        }
+      ]
+    },
+    "generic-domain-hierarchy": {
+      "complete": true,
+      "scope": "Synthetic development prompts, computed tool evidence; not held-out reliability or domain certification.",
+      "passed": 11,
+      "total": 11,
+      "cases": [
+        {
+          "id": "grades-mean",
+          "success": true
+        },
+        {
+          "id": "grades-threshold",
+          "success": true
+        },
+        {
+          "id": "grades-chart",
+          "success": true
+        },
+        {
+          "id": "sales-filter",
+          "success": true
+        },
+        {
+          "id": "sales-monthly",
+          "success": true
+        },
+        {
+          "id": "stock-45-days",
+          "success": true
+        },
+        {
+          "id": "inventory-threshold",
+          "success": true
+        },
+        {
+          "id": "inventory-key",
+          "success": true
+        },
+        {
+          "id": "survey-mean",
+          "success": true
+        },
+        {
+          "id": "survey-frequencies",
+          "success": true
+        },
+        {
+          "id": "representation-hints",
+          "success": true
+        }
+      ]
+    },
+    "generic-reference-hierarchy": {
+      "complete": true,
+      "scope": "Synthetic development cases; live Gradio callbacks, separate browser checks required",
+      "passed": 5,
+      "total": 5,
+      "cases": [
+        {
+          "id": "all-zh",
+          "success": true
+        },
+        {
+          "id": "amount-en",
+          "success": true
+        },
+        {
+          "id": "region-followup-zh",
+          "success": true
+        },
+        {
+          "id": "schema-en",
+          "success": true
+        }
+      ]
+    }
+  },
+  "scorer_note": "Domain sales-filter accepts original filter_and_aggregate or equivalent aggregate_rows, requiring the real field, sum metric, literal status condition, 3 matched rows and 3500. Prior failed runs are not relabeled.",
+  "tests": {
+    "total": 198,
+    "dependency_based": 162,
+    "stdlib": 36,
+    "seconds": 15.3
+  },
+  "router_trial_note": "Router-only expectations are diagnostic, not end-to-end success. The sales-monthly expectation was mistakenly labeled dates despite explicitly requesting a line chart; chart is correct."
+}

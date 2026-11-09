@@ -1,0 +1,363 @@
+{
+  "suite": "sixteen_tasks",
+  "scorer_revision": 2,
+  "tasks_file": "sixteen_tasks.json",
+  "model": "qwen2.5-7b-instruct",
+  "scope": "Computed tool evidence and termination; generated prose accuracy is not automatically scored.",
+  "max_steps": 3,
+  "complete": true,
+  "passed": 36,
+  "completed": 36,
+  "total": 36,
+  "seconds": 50.051,
+  "covered_tools": [
+    "analyze_distribution",
+    "check_correlations",
+    "check_duplicates",
+    "check_key_uniqueness",
+    "check_missing_values",
+    "check_numeric_range",
+    "compare_columns",
+    "compare_groups",
+    "detect_outliers",
+    "filter_and_aggregate",
+    "generate_quality_report",
+    "inspect_date_column",
+    "inspect_schema",
+    "summarize_time_series",
+    "validate_categories",
+    "validate_data_types"
+  ],
+  "error_observations": 1,
+  "web_checks": [
+    {
+      "tool": "validate_categories",
+      "success": true
+    },
+    {
+      "tool": "check_key_uniqueness",
+      "success": true
+    },
+    {
+      "tool": "filter_and_aggregate",
+      "success": true
+    },
+    {
+      "tool": "generate_quality_report",
+      "success": true
+    }
+  ],
+  "development_history": [
+    {
+      "run": "v1",
+      "passed": 35,
+      "total": 36,
+      "seconds": 51.831,
+      "failure": "Single-column status frequencies were answered with a numeric mean after tool errors."
+    },
+    {
+      "run": "v2",
+      "passed": 35,
+      "total": 36,
+      "seconds": 48.764,
+      "failure": "Grouped non-null amount counts were mistaken for status row frequencies."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "schema-en",
+      "success": true,
+      "seconds": 1.129,
+      "tools": [
+        "inspect_schema"
+      ]
+    },
+    {
+      "id": "schema-zh",
+      "success": true,
+      "seconds": 1.977,
+      "tools": [
+        "inspect_schema"
+      ]
+    },
+    {
+      "id": "missing-en",
+      "success": true,
+      "seconds": 1.087,
+      "tools": [
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "missing-zh",
+      "success": true,
+      "seconds": 0.978,
+      "tools": [
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "duplicates-en",
+      "success": true,
+      "seconds": 0.777,
+      "tools": [
+        "check_duplicates"
+      ]
+    },
+    {
+      "id": "duplicates-region",
+      "success": true,
+      "seconds": 0.661,
+      "tools": [
+        "check_duplicates"
+      ]
+    },
+    {
+      "id": "outliers-en",
+      "success": true,
+      "seconds": 1.807,
+      "tools": [
+        "detect_outliers"
+      ]
+    },
+    {
+      "id": "outliers-zh",
+      "success": true,
+      "seconds": 1.285,
+      "tools": [
+        "detect_outliers"
+      ]
+    },
+    {
+      "id": "distribution-numeric",
+      "success": true,
+      "seconds": 2.096,
+      "tools": [
+        "check_correlations",
+        "check_numeric_range",
+        "analyze_distribution"
+      ]
+    },
+    {
+      "id": "distribution-category",
+      "success": true,
+      "seconds": 0.938,
+      "tools": [
+        "analyze_distribution"
+      ]
+    },
+    {
+      "id": "types-en",
+      "success": true,
+      "seconds": 1.17,
+      "tools": [
+        "validate_data_types"
+      ]
+    },
+    {
+      "id": "types-zh",
+      "success": true,
+      "seconds": 1.12,
+      "tools": [
+        "validate_data_types"
+      ]
+    },
+    {
+      "id": "correlation-en",
+      "success": true,
+      "seconds": 1.308,
+      "tools": [
+        "check_correlations"
+      ]
+    },
+    {
+      "id": "correlation-zh",
+      "success": true,
+      "seconds": 1.007,
+      "tools": [
+        "check_correlations"
+      ]
+    },
+    {
+      "id": "group-mean-en",
+      "success": true,
+      "seconds": 1.466,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "group-mean-zh",
+      "success": true,
+      "seconds": 1.639,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "group-sum",
+      "success": true,
+      "seconds": 1.263,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "group-count",
+      "success": true,
+      "seconds": 1.345,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "dates-en",
+      "success": true,
+      "seconds": 1.201,
+      "tools": [
+        "inspect_date_column"
+      ]
+    },
+    {
+      "id": "dates-zh",
+      "success": true,
+      "seconds": 1.31,
+      "tools": [
+        "inspect_date_column"
+      ]
+    },
+    {
+      "id": "report-en",
+      "success": true,
+      "seconds": 1.425,
+      "tools": [
+        "generate_quality_report"
+      ]
+    },
+    {
+      "id": "report-zh",
+      "success": true,
+      "seconds": 1.579,
+      "tools": [
+        "generate_quality_report"
+      ]
+    },
+    {
+      "id": "multi-missing-duplicates",
+      "success": true,
+      "seconds": 1.463,
+      "tools": [
+        "check_missing_values",
+        "check_duplicates"
+      ]
+    },
+    {
+      "id": "multi-types-dates",
+      "success": true,
+      "seconds": 1.881,
+      "tools": [
+        "validate_data_types",
+        "inspect_date_column"
+      ]
+    },
+    {
+      "id": "range-en",
+      "success": true,
+      "seconds": 2.332,
+      "tools": [
+        "check_numeric_range",
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "range-zh",
+      "success": true,
+      "seconds": 1.672,
+      "tools": [
+        "check_numeric_range",
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "reconcile-en",
+      "success": true,
+      "seconds": 1.374,
+      "tools": [
+        "compare_columns"
+      ]
+    },
+    {
+      "id": "reconcile-zh",
+      "success": true,
+      "seconds": 1.531,
+      "tools": [
+        "compare_columns"
+      ]
+    },
+    {
+      "id": "monthly-en",
+      "success": true,
+      "seconds": 1.265,
+      "tools": [
+        "summarize_time_series"
+      ]
+    },
+    {
+      "id": "monthly-zh",
+      "success": true,
+      "seconds": 1.417,
+      "tools": [
+        "summarize_time_series"
+      ]
+    },
+    {
+      "id": "category-en",
+      "success": true,
+      "seconds": 1.816,
+      "tools": [
+        "validate_categories"
+      ]
+    },
+    {
+      "id": "category-zh",
+      "success": true,
+      "seconds": 1.157,
+      "tools": [
+        "validate_categories"
+      ]
+    },
+    {
+      "id": "key-en",
+      "success": true,
+      "seconds": 1.19,
+      "tools": [
+        "check_key_uniqueness"
+      ]
+    },
+    {
+      "id": "key-zh",
+      "success": true,
+      "seconds": 1.22,
+      "tools": [
+        "check_key_uniqueness"
+      ]
+    },
+    {
+      "id": "filter-en",
+      "success": true,
+      "seconds": 1.906,
+      "tools": [
+        "filter_and_aggregate",
+        "filter_and_aggregate"
+      ]
+    },
+    {
+      "id": "filter-zh",
+      "success": true,
+      "seconds": 1.259,
+      "tools": [
+        "filter_and_aggregate"
+      ]
+    }
+  ]
+}

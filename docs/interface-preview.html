@@ -1,0 +1,108 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DataAudit · 界面草稿</title><style>
+* { box-sizing:border-box; } body {margin:0;font-family:system-ui,sans-serif;} .row{display:flex;gap:18px;} .column{display:flex;flex-direction:column;gap:13px;min-width:0;} button,textarea,select{font:inherit;} button{cursor:default;} .tab-nav{display:flex;gap:24px;border-bottom:1px solid #e1e6ef;padding-bottom:12px;color:#8b95a7;font-size:13px;} .tab-nav .selected{color:#526be4;} .data-actions{margin:18px 0;} .draft-note{text-align:center;font-size:10px;color:#9ba6b8;margin-bottom:15px;} .result-label{margin-bottom:12px;} #data-preview{margin-top:8px;} #data-preview summary{font-size:11px;color:#8a98ad;padding:10px 0;cursor:pointer;}
+
+:root { --ink:#202a3c; --muted:#7e899b; --line:#e6e9f0; --accent:#526be4; }
+body, .gradio-container { background:#f5f7fb !important; }
+.gradio-container { width:100% !important; max-width:1220px !important; margin:0 auto !important; padding:22px 26px 28px !important; box-sizing:border-box !important; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif !important; }
+.gradio-container > main { width:100% !important; max-width:none !important; padding:0 !important; }
+.app-header { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 2px 20px; }
+.brand { display:flex; align-items:center; gap:11px; }
+.brand-mark { display:grid; place-items:center; width:33px; height:33px; background:#526be4; border-radius:9px; color:white; font-size:20px; font-weight:650; }
+.brand h1 { font-size:21px; letter-spacing:-.6px; font-weight:650; color:#202a3c; margin:0; }
+.app-header p { margin:0; font-size:12px; color:#8b95a6; }
+#main-tabs { border:0 !important; }
+#main-tabs > .tab-nav { border-bottom:1px solid #e1e6ef !important; gap:25px !important; padding:0 2px !important; }
+#main-tabs > .tab-nav button { padding:9px 0 13px !important; border-radius:0 !important; font-size:13px !important; font-weight:550 !important; color:#8791a2 !important; border-bottom:2px solid transparent !important; background:transparent !important; }
+#main-tabs > .tab-nav button.selected, #main-tabs > .tab-nav button[aria-selected=true] { color:#4e65d7 !important; border-bottom-color:#526be4 !important; }
+.tabitem { background:transparent !important; border:0 !important; padding:18px 0 0 !important; }
+.data-actions { align-items:center !important; gap:9px !important; background:white !important; padding:12px 14px !important; border:1px solid var(--line) !important; border-radius:11px !important; }
+.data-actions > .column { min-height:0 !important; }
+#choose-csv { min-height:35px !important; background:#526be4 !important; color:white !important; border:1px solid #526be4 !important; border-radius:7px !important; font-size:12px !important; font-weight:550 !important; padding:7px 16px !important; box-shadow:none !important; }
+#choose-csv:hover, #run-check:hover { background:#425bd1 !important; }
+.file-status { color:#9aa3b2; font-size:11px; line-height:1.5; overflow-wrap:anywhere; padding-left:5px; }
+.file-status strong { color:#455168; font-size:12px; font-weight:550; margin-right:9px; }
+.file-status span { white-space:nowrap; }
+.file-status em { font-style:normal; font-weight:450; font-size:10px; color:#6680d0; background:#eef2ff; border-radius:4px; padding:2px 5px; margin-left:7px; }
+.file-status.failed { color:#b46248; }
+.file-status details { margin-top:4px; }
+.sample-button { background:transparent !important; color:#7e899c !important; border:0 !important; border-radius:6px !important; min-height:32px !important; padding:5px 8px !important; font-size:11px !important; box-shadow:none !important; }
+.sample-button:hover { background:#f1f4fc !important; color:#526be4 !important; }
+#clear-file { background:transparent !important; border:0 !important; color:#a5acb9 !important; font-size:11px !important; padding:5px !important; min-height:32px !important; box-shadow:none !important; }
+.stat-band { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); background:white; border:1px solid var(--line); border-radius:11px; padding:20px 0; margin:0; }
+.stat { padding:0 24px; border-right:1px solid #edf0f5; }
+.stat:last-child { border-right:0; }
+.stat-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.stat-label { font-size:11px; color:#8a95a7; }
+.stat-value { font-size:30px; font-weight:600; line-height:1; color:#253147; letter-spacing:-.7px; font-variant-numeric:tabular-nums; }
+.stat-value.attention { color:#b48149; }
+.stat-unit { font-size:10px; color:#a1aab7; margin-top:9px; }
+.work-grid { align-items:flex-start !important; gap:18px !important; }
+.chart-card, .ask-panel { background:white !important; border:1px solid var(--line) !important; border-radius:12px !important; padding:19px !important; gap:12px !important; box-shadow:0 3px 16px rgba(38,51,84,.025) !important; }
+#chart-tabs { border:0 !important; }
+#chart-tabs > .tab-nav { border-bottom:1px solid #edf0f6 !important; gap:18px !important; padding:0 !important; }
+#chart-tabs > .tab-nav button { background:transparent !important; border-radius:0 !important; padding:6px 0 11px !important; font-size:12px !important; font-weight:550 !important; color:#8a94a5 !important; }
+#chart-tabs > .tab-nav button.selected { color:#4156bd !important; border-color:#6b7de0 !important; }
+#chart-tabs .tabitem { padding:12px 0 0 !important; }
+.chart-caption { font-size:11px; color:#a1a9b8; margin-bottom:4px; }
+.chart-card .block { border:0 !important; background:transparent !important; box-shadow:none !important; padding:0 !important; }
+#distribution-picker { min-height:36px; }
+.section-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.section-heading h2 { font-size:16px; font-weight:600; color:#2a354b; margin:0; }
+.section-heading span { font-size:10px; color:#a0a9b7; }
+#question { background:transparent !important; border:0 !important; padding:0 !important; }
+#question textarea { background:#fcfdff !important; border:1px solid #dfe5ef !important; border-radius:8px !important; padding:12px !important; font-size:13px !important; line-height:1.8 !important; color:#415069 !important; box-shadow:none !important; }
+#question textarea:focus { border-color:#8c9bea !important; outline:2px solid #edf0ff !important; }
+.quick-row { gap:7px !important; justify-content:flex-start !important; }
+.quick-button { flex:0 0 auto !important; min-height:28px !important; background:#f5f7fc !important; border:0 !important; border-radius:5px !important; font-size:10px !important; color:#8190aa !important; padding:4px 10px !important; box-shadow:none !important; }
+.quick-button:hover { background:#eaf0ff !important; color:#526be4 !important; }
+#run-check { min-height:37px !important; background:#526be4 !important; border:1px solid #526be4 !important; color:white !important; border-radius:7px !important; font-size:12px !important; font-weight:550 !important; box-shadow:none !important; }
+.result-label { margin-top:5px; padding-top:15px; border-top:1px solid #edf0f6; font-size:11px; color:#9ba5b4; }
+#analysis-answer { line-height:1.85; font-size:13px; color:#46536b; max-height:430px; overflow:auto; }
+#analysis-answer h2, #analysis-answer h3 { font-size:14px !important; color:#35435d; }
+#analysis-answer table { font-size:11px; }
+#download-report { min-height:33px !important; background:#f1f4ff !important; color:#526be4 !important; border:1px solid #e5eafb !important; font-size:11px !important; border-radius:6px !important; box-shadow:none !important; }
+#calculation-log { background:transparent !important; border:0 !important; border-top:1px solid #edf0f6 !important; border-radius:0 !important; }
+#calculation-log > .label-wrap { color:#8e99ab !important; font-size:11px !important; padding:12px 0 2px !important; }
+.catalog-intro { padding:4px 0 18px; }
+.catalog-intro h2 { font-size:20px; font-weight:600; color:#263249; margin:0 0 7px; }
+.catalog-intro p { color:#8b95a5; font-size:12px; margin:0; }
+.catalog-section { margin-bottom:22px; }
+.catalog-section > h3 { font-size:11px; color:#7b89a1; font-weight:550; margin:0 0 10px; }
+.tool-list { background:white; border:1px solid var(--line); border-radius:11px; padding:0 20px; }
+.tool-row { display:grid; grid-template-columns:140px 1.2fr 1.4fr; gap:20px; align-items:center; padding:16px 0; border-bottom:1px solid #edf0f6; }
+.tool-row:last-child { border-bottom:0; }
+.tool-row h4 { margin:0; color:#41506a; font-size:12px; font-weight:550; }
+.tool-row p { margin:0; color:#8f98a8; font-size:11px; line-height:1.8; }
+.tool-example { color:#6f82b5; font-size:11px; line-height:1.8; }
+.page-foot { display:flex; justify-content:space-between; gap:16px; border-top:1px solid #e3e8f1; padding-top:14px; margin-top:22px; font-size:10px; color:#a1aab8; }
+
+#main-tabs > .tab-nav { margin-bottom:2px; }
+#question textarea::placeholder { color:#a1aabd; }
+#analysis-answer { padding:2px 0 5px; }
+#analysis-answer strong { color:#33496d; }
+#data-preview { border:0 !important; border-top:1px solid #edf0f6 !important; border-radius:0 !important; background:transparent !important; }
+#data-preview > .label-wrap { font-size:11px !important; color:#8a98ad !important; padding:12px 0 !important; }
+.preview-scroll { overflow-x:auto; border:1px solid #edf0f6; border-radius:7px; }
+.preview-table { width:100%; border-collapse:collapse; font-size:11px; text-align:left; white-space:nowrap; }
+.preview-table th { background:#f8faff; color:#75849b; font-weight:500; padding:9px 11px; }
+.preview-table td { padding:9px 11px; color:#53617a; border-top:1px solid #edf0f6; }
+.preview-table td.missing, .preview-table td.redacted { color:#a9b0bd; font-style:italic; }
+.preview-empty, .execution-empty { font-size:11px; color:#a4aebe; padding:5px 0; }
+.execution-list { border-top:1px solid #edf0f6; }
+.execution-row { display:flex; align-items:center; gap:8px; padding:10px 0; border-bottom:1px solid #f0f3f8; font-size:11px; }
+.execution-index { color:#b0b9c8; font-variant-numeric:tabular-nums; }
+.execution-label { flex:1; color:#697a92; }
+.execution-time { font-size:10px; color:#aab3c2; }
+.execution-badge { font-size:9px; padding:2px 6px; border-radius:4px; }
+.execution-badge.ok { background:#edf6f0; color:#65957a; }
+.execution-badge.error { background:#fff3e9; color:#b38860; }
+footer { display:none !important; }
+@media(max-width:900px) { .work-grid { flex-direction:column !important; } .chart-card, .ask-panel { width:100% !important; min-width:0 !important; flex:auto !important; } .tool-row { grid-template-columns:110px 1fr; } .tool-example { grid-column:2; } .file-info { min-width:140px !important; } }
+@media(max-width:560px) { .gradio-container { padding:18px 14px !important; } .app-header { padding-bottom:15px; } .app-header p { display:none; } .data-actions { padding:10px !important; gap:6px !important; } .file-info { min-width:150px !important; } .stat-band { grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px 0; padding:17px 0; } .stat { padding:0 17px; } .stat:nth-child(2) { border-right:0; } .stat-value { font-size:27px; } .chart-card, .ask-panel { padding:16px !important; } .tool-row { grid-template-columns:1fr; gap:6px; padding:15px 0; } .tool-example { grid-column:1; } .page-foot { display:block; line-height:1.9; } }
+
+</style></head><body><div class="gradio-container"><main>
+<div class="app-header"><div class="brand"><span class="brand-mark" aria-hidden="true">D</span><h1>DataAudit</h1></div><p>数据检查与统计</p></div>
+<div class="draft-note">本地界面草稿 · 示例统计来自实际 CSV · 按钮不连接模型</div><div id="main-tabs"><div class="tab-nav"><span class="selected">工作台</span><span>工具库 · 19</span></div></div>
+<div class="row data-actions"><button id="choose-csv">上传 CSV</button><div class="file-status" style="flex:1"><strong>consistency_checks.csv <em>示例</em></strong><span>6 行</span></div><button class="sample-button">订单示例</button><button class="sample-button">格式示例</button></div><div class="stat-band"><div class="stat"><div class="stat-label">行数</div><div class="stat-value">6</div><div class="stat-unit">示例数据</div></div><div class="stat"><div class="stat-label">列数</div><div class="stat-value">6</div><div class="stat-unit">示例数据</div></div><div class="stat"><div class="stat-label">空白单元格</div><div class="stat-value">5</div><div class="stat-unit">示例数据</div></div><div class="stat"><div class="stat-label">重复行</div><div class="stat-value">0</div><div class="stat-unit">示例数据</div></div></div>
+<div class="row work-grid" style="margin-top:18px"><section class="column chart-card" style="flex:3"><div class="tab-nav"><span class="selected">数值分布</span><span>空值分布</span></div><svg viewBox="0 0 440 275" role="img" aria-label="示例前四条有效金额"><line x1="35" y1="65" x2="420" y2="65" stroke="#edf0f7"/><line x1="35" y1="115" x2="420" y2="115" stroke="#edf0f7"/><line x1="35" y1="165" x2="420" y2="165" stroke="#edf0f7"/><line x1="35" y1="220" x2="420" y2="220" stroke="#edf0f7"/><rect x="55" y="142.5" width="43" height="77.5" rx="3" fill="#7b8bdf"/><text x="76" y="244" text-anchor="middle" fill="#97a3b5" font-size="11">1</text><text x="76" y="132.5" text-anchor="middle" fill="#718099" font-size="11">100</text><rect x="139" y="65.0" width="43" height="155.0" rx="3" fill="#7b8bdf"/><text x="160" y="244" text-anchor="middle" fill="#97a3b5" font-size="11">2</text><text x="160" y="55.0" text-anchor="middle" fill="#718099" font-size="11">200</text><rect x="223" y="103.75" width="43" height="116.25" rx="3" fill="#7b8bdf"/><text x="244" y="244" text-anchor="middle" fill="#97a3b5" font-size="11">3</text><text x="244" y="93.75" text-anchor="middle" fill="#718099" font-size="11">150</text><rect x="307" y="181.25" width="43" height="38.75" rx="3" fill="#7b8bdf"/><text x="328" y="244" text-anchor="middle" fill="#97a3b5" font-size="11">4</text><text x="328" y="171.25" text-anchor="middle" fill="#718099" font-size="11">50</text><text x="230" y="268" text-anchor="middle" fill="#a1aabd" font-size="10">有效金额 · 按原表顺序</text></svg><details id="data-preview" open><summary>数据预览 · 前 5 行</summary><div class="preview-scroll"><table class="preview-table"><thead><tr><th>order_id</th><th>status</th><th>amount</th><th>recorded_amount</th><th>order_date</th><th>ship_date</th></tr></thead><tbody><tr><td class="redacted">已隐藏</td><td class="">completed</td><td class="">100</td><td class="">100</td><td class="">2026-10-01</td><td class="">2026-10-02</td></tr><tr><td class="redacted">已隐藏</td><td class="">completed</td><td class="">200</td><td class="missing">空值</td><td class="">2026-10-02</td><td class="">2026-10-01</td></tr><tr><td class="redacted">已隐藏</td><td class=""> completed </td><td class="">150</td><td class="">150</td><td class="">2026-10-03</td><td class="">2026-10-03</td></tr><tr><td class="redacted">已隐藏</td><td class="">Completed</td><td class="">50</td><td class="">50</td><td class="">2026-10-04</td><td class="">invalid</td></tr><tr><td class="redacted">已隐藏</td><td class="">pending</td><td class="missing">空值</td><td class="missing">空值</td><td class="">2026-10-05</td><td class="missing">空值</td></tr></tbody></table></div></details></section>
+<section class="column ask-panel" style="flex:2"><div class="section-heading"><h2>问这份数据</h2></div><div id="question"><textarea aria-label="想查的问题" style="width:100%;resize:none" rows="3">completed 的订单，amount 和 recorded_amount 是否都填写了？</textarea></div><div class="row quick-row"><button class="quick-button">查空值</button><button class="quick-button">查重复</button><button class="quick-button">写报告</button></div><button id="run-check">开始检查</button><div class="result-label">检查结果</div><div id="analysis-answer"><strong>条件必填检查</strong><p>status 等于 completed 的记录中，3 行符合条件，2 行存在必填项缺失。</p><ul><li>amount：缺失 1 行。</li><li>recorded_amount：缺失 1 行。</li></ul></div><div class="execution-list"><div class="execution-row"><span class="execution-index">01</span><span class="execution-label">检查条件必填</span><span class="execution-time">2 ms</span><span class="execution-badge ok">完成</span></div></div><div style="color:#9aa5b7;font-size:11px">参数与原始结果</div></section></div><div class="page-foot"><span>DataAudit / CSV 工作台</span><span>示例数据 · 原表不会被改写</span></div></main></div></body></html>

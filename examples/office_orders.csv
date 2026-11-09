@@ -1,0 +1,10 @@
+order_date,region,department,amount,quantity,status
+2026-10-01,East,Sales,120,2,completed
+2026-10-02,West,Support,80,1,completed
+2026-10-03,East,Sales,180,3,completed
+2026-10-04,West,Support,,2,pending
+2026-10-05,East,Sales,60,1,completed
+2026-10-06,North,Operations,240,4,completed
+not-a-date,North,Operations,300,5,pending
+2026-10-08,West,Support,40,1,completed
+2026-10-08,West,Support,40,1,completed

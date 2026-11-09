@@ -1,0 +1,806 @@
+{
+  "unit_tests": {
+    "total": 180,
+    "stdlib": 36,
+    "dependency": 144,
+    "seconds": 12.35
+  },
+  "runs": [
+    {
+      "record": "domain-web-first.json",
+      "passed": 7,
+      "total": 11,
+      "complete": true,
+      "cases": [
+        {
+          "id": "grades-mean",
+          "domain": "成绩",
+          "question": "数学的平均分是多少？",
+          "success": true,
+          "seconds": 2.428,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "数学",
+                "top_k": 10
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "grades-threshold",
+          "domain": "成绩",
+          "question": "统计数学不低于60的记录数量，缺失分数不计入。",
+          "success": false,
+          "seconds": 1.429,
+          "tools": [
+            {
+              "tool": "compare_groups",
+              "arguments": {
+                "group_column": "数学",
+                "metric_column": "学号",
+                "method": "count"
+              },
+              "status": "ok"
+            }
+          ],
+          "answer": "数学成绩不低于60分的记录共有5条，具体分数为60、70、90和100分，每种分数各有一条记录。缺失值也被计入统计。"
+        },
+        {
+          "id": "grades-chart",
+          "domain": "成绩",
+          "question": "按班级分组，用数学的平均分画柱状图。",
+          "success": true,
+          "seconds": 1.423,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "bar",
+                "x": "班级",
+                "y": "数学",
+                "method": "mean"
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "sales-filter",
+          "domain": "销售",
+          "question": "只看状态等于已完成的记录，销售额（元）合计是多少？",
+          "success": false,
+          "seconds": 2.579,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "状态",
+                "operator": "eq",
+                "value": "已完成",
+                "metric_column": "销售额（元)",
+                "method": "sum"
+              },
+              "status": "error"
+            }
+          ],
+          "answer": "没有取得可用的工具结果，暂时无法给出数据结论。请检查字段名和参数，或换一种问法。"
+        },
+        {
+          "id": "sales-monthly",
+          "domain": "销售",
+          "question": "按日期每月汇总销售额（元）的合计，画折线图。保留退款负数。",
+          "success": true,
+          "seconds": 2.375,
+          "tools": [
+            {
+              "tool": "summarize_time_series",
+              "arguments": {
+                "date_column": "日期",
+                "metric_column": "销售额（元）",
+                "frequency": "month",
+                "method": "sum"
+              },
+              "status": "ok"
+            },
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "line",
+                "x": "日期",
+                "y": "销售额（元）",
+                "method": "sum",
+                "frequency": "month"
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "stock-45-days",
+          "domain": "股价",
+          "question": "这是单一虚构股票。按日期每天的收盘价平均值画折线图，保留缺失，不预测。",
+          "success": false,
+          "seconds": 2.729,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "line",
+                "x": "日期",
+                "y": null,
+                "method": "count",
+                "frequency": "day"
+              },
+              "status": "ok"
+            }
+          ],
+          "answer": "折线图已生成，见左侧「生成的图表」。横轴有效的有 45 行；横轴为空或无效的 0 行已排除，数值为空或无效的 0 行未参与计算。重复行仍计入。可下载 HTML，离线打开和查看各点数值。"
+        },
+        {
+          "id": "inventory-threshold",
+          "domain": "库存",
+          "question": "库存数量小于10的有多少条记录？",
+          "success": false,
+          "seconds": 2.376,
+          "tools": [
+            {
+              "tool": "compare_columns",
+              "arguments": {
+                "left_column": "库存数量",
+                "right_column": "10",
+                "mode": "lt"
+              },
+              "status": "error"
+            }
+          ],
+          "answer": "I stopped because the model repeated a tool call with the same arguments. The previous tool observations are included in the execution log; no duplicate work was run."
+        },
+        {
+          "id": "inventory-key",
+          "domain": "库存",
+          "question": "商品编码能作为主键吗？检查缺失和重复。",
+          "success": true,
+          "seconds": 1.719,
+          "tools": [
+            {
+              "tool": "check_key_uniqueness",
+              "arguments": {
+                "columns": [
+                  "商品编码"
+                ]
+              },
+              "status": "ok"
+            },
+            {
+              "tool": "check_missing_values",
+              "arguments": {},
+              "status": "ok"
+            },
+            {
+              "tool": "check_duplicates",
+              "arguments": {
+                "subset": [
+                  "商品编码"
+                ]
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "survey-mean",
+          "domain": "问卷",
+          "question": "满意评分的平均值是多少？",
+          "success": true,
+          "seconds": 2.391,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "满意评分",
+                "top_k": 10
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "survey-frequencies",
+          "domain": "问卷",
+          "question": "统计满意度每种取值的记录数。",
+          "success": true,
+          "seconds": 1.657,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "满意度",
+                "top_k": 10
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "representation-hints",
+          "domain": "格式与单位",
+          "question": "运行数据类型检查，指出带货币、百分号、单位或非ISO日期的字段；不转换数据。",
+          "success": true,
+          "seconds": 2.429,
+          "tools": [
+            {
+              "tool": "validate_data_types",
+              "arguments": {},
+              "status": "ok"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "record": "domain-web-routed.json",
+      "passed": 8,
+      "total": 11,
+      "complete": true,
+      "cases": [
+        {
+          "id": "grades-mean",
+          "domain": "成绩",
+          "question": "数学的平均分是多少？",
+          "success": true,
+          "seconds": 2.029,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "数学"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 611.23
+              }
+            }
+          ]
+        },
+        {
+          "id": "grades-threshold",
+          "domain": "成绩",
+          "question": "统计数学不低于60的记录数量，缺失分数不计入。",
+          "success": true,
+          "seconds": 2.327,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "数学",
+                "operator": ">=",
+                "value": 60,
+                "metric_column": null,
+                "method": "count"
+              },
+              "status": "error",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 333.92
+              }
+            },
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "数学",
+                "operator": "ge",
+                "value": 60,
+                "metric_column": null,
+                "method": "count"
+              },
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "id": "grades-chart",
+          "domain": "成绩",
+          "question": "按班级分组，用数学的平均分画柱状图。",
+          "success": true,
+          "seconds": 1.926,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "bar",
+                "x": "班级",
+                "y": "数学",
+                "method": "mean"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 331.15
+              }
+            }
+          ]
+        },
+        {
+          "id": "sales-filter",
+          "domain": "销售",
+          "question": "只看状态等于已完成的记录，销售额（元）合计是多少？",
+          "success": true,
+          "seconds": 1.776,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "状态",
+                "operator": "eq",
+                "value": "已完成",
+                "metric_column": "销售额（元）",
+                "method": "sum"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 336.37
+              }
+            }
+          ]
+        },
+        {
+          "id": "sales-monthly",
+          "domain": "销售",
+          "question": "按日期每月汇总销售额（元）的合计，画折线图。保留退款负数。",
+          "success": true,
+          "seconds": 1.979,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "line",
+                "x": "日期",
+                "y": "销售额（元）",
+                "method": "sum",
+                "frequency": "month"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 338.17
+              }
+            }
+          ]
+        },
+        {
+          "id": "stock-45-days",
+          "domain": "股价",
+          "question": "这是单一虚构股票。按日期每天的收盘价平均值画折线图，保留缺失，不预测。",
+          "success": false,
+          "seconds": 2.126,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "line",
+                "x": "日期",
+                "y": null,
+                "method": "count",
+                "frequency": "day"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 344.27
+              }
+            }
+          ],
+          "answer": "折线图已生成，见左侧「生成的图表」。横轴有效的有 45 行；横轴为空或无效的 0 行已排除，数值为空或无效的 0 行未参与计算。重复行仍计入。可下载 HTML，离线打开和查看各点数值。"
+        },
+        {
+          "id": "inventory-threshold",
+          "domain": "库存",
+          "question": "库存数量小于10的有多少条记录？",
+          "success": true,
+          "seconds": 1.523,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "库存数量",
+                "operator": "lt",
+                "value": 10
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 333.5
+              }
+            }
+          ]
+        },
+        {
+          "id": "inventory-key",
+          "domain": "库存",
+          "question": "商品编码能作为主键吗？检查缺失和重复。",
+          "success": false,
+          "seconds": 2.026,
+          "tools": [
+            {
+              "tool": "check_missing_values",
+              "arguments": {},
+              "status": "ok",
+              "tool_routing": {
+                "family": "profile",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 333.69
+              }
+            },
+            {
+              "tool": "check_duplicates",
+              "arguments": {},
+              "status": "ok"
+            },
+            {
+              "tool": "validate_data_types",
+              "arguments": {},
+              "status": "ok"
+            }
+          ],
+          "answer": "商品编码没有缺失值，也没有重复记录。不过，商品编码列包含一些看起来像是数字的文本值。建议审查这些值以确认是否需要转换数据类型。商品编码可以作为主键，前提是所有值都是唯一的且无缺失。"
+        },
+        {
+          "id": "survey-mean",
+          "domain": "问卷",
+          "question": "满意评分的平均值是多少？",
+          "success": true,
+          "seconds": 1.725,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "满意评分"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 329.36
+              }
+            }
+          ]
+        },
+        {
+          "id": "survey-frequencies",
+          "domain": "问卷",
+          "question": "统计满意度每种取值的记录数。",
+          "success": false,
+          "seconds": 2.228,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "满意度",
+                "operator": "count",
+                "value": ""
+              },
+              "status": "error",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 326.54
+              }
+            },
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "满意度",
+                "operator": "contains",
+                "value": ""
+              },
+              "status": "ok"
+            }
+          ],
+          "answer": "**筛选后统计**\n\n条件：`满意度` 包含 ``。\n\n符合条件 5 行，共 6 行。`记录`数量：**5**。\n\n筛选列缺失 1 个，无法按数字比较 0 个；这些记录未计入匹配。"
+        },
+        {
+          "id": "representation-hints",
+          "domain": "格式与单位",
+          "question": "运行数据类型检查，指出带货币、百分号、单位或非ISO日期的字段；不转换数据。",
+          "success": true,
+          "seconds": 2.079,
+          "tools": [
+            {
+              "tool": "validate_data_types",
+              "arguments": {},
+              "status": "ok",
+              "tool_routing": {
+                "family": "rules",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 337.81
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "record": "domain-web-final.json",
+      "passed": 11,
+      "total": 11,
+      "complete": true,
+      "cases": [
+        {
+          "id": "grades-mean",
+          "domain": "成绩",
+          "question": "数学的平均分是多少？",
+          "success": true,
+          "seconds": 1.677,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "数学"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "profile",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 573.73
+              }
+            }
+          ]
+        },
+        {
+          "id": "grades-threshold",
+          "domain": "成绩",
+          "question": "统计数学不低于60的记录数量，缺失分数不计入。",
+          "success": true,
+          "seconds": 1.626,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "数学",
+                "operator": "ge",
+                "value": 60,
+                "metric_column": null,
+                "method": "count"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 344.82
+              }
+            }
+          ]
+        },
+        {
+          "id": "grades-chart",
+          "domain": "成绩",
+          "question": "按班级分组，用数学的平均分画柱状图。",
+          "success": true,
+          "seconds": 1.826,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "bar",
+                "x": "班级",
+                "y": "数学",
+                "method": "mean"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 342.48
+              }
+            }
+          ]
+        },
+        {
+          "id": "sales-filter",
+          "domain": "销售",
+          "question": "只看状态等于已完成的记录，销售额（元）合计是多少？",
+          "success": true,
+          "seconds": 1.776,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "状态",
+                "operator": "eq",
+                "value": "已完成",
+                "metric_column": "销售额（元）",
+                "method": "sum"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 341.24
+              }
+            }
+          ]
+        },
+        {
+          "id": "sales-monthly",
+          "domain": "销售",
+          "question": "按日期每月汇总销售额（元）的合计，画折线图。保留退款负数。",
+          "success": true,
+          "seconds": 2.078,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "line",
+                "x": "日期",
+                "y": "销售额（元）",
+                "method": "sum",
+                "frequency": "month"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 345.66
+              }
+            }
+          ]
+        },
+        {
+          "id": "stock-45-days",
+          "domain": "股价",
+          "question": "这是单一虚构股票。按日期每天的收盘价平均值画折线图，保留缺失，不预测。",
+          "success": true,
+          "seconds": 2.08,
+          "tools": [
+            {
+              "tool": "create_chart",
+              "arguments": {
+                "chart_type": "line",
+                "x": "日期",
+                "y": "收盘价",
+                "method": "mean",
+                "frequency": "day"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "chart",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 352.36
+              }
+            }
+          ]
+        },
+        {
+          "id": "inventory-threshold",
+          "domain": "库存",
+          "question": "库存数量小于10的有多少条记录？",
+          "success": true,
+          "seconds": 1.526,
+          "tools": [
+            {
+              "tool": "filter_and_aggregate",
+              "arguments": {
+                "filter_column": "库存数量",
+                "operator": "lt",
+                "value": 10
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "filter",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 345.31
+              }
+            }
+          ]
+        },
+        {
+          "id": "inventory-key",
+          "domain": "库存",
+          "question": "商品编码能作为主键吗？检查缺失和重复。",
+          "success": true,
+          "seconds": 1.926,
+          "tools": [
+            {
+              "tool": "check_key_uniqueness",
+              "arguments": {
+                "columns": [
+                  "商品编码"
+                ]
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "rules",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 352.81
+              }
+            }
+          ]
+        },
+        {
+          "id": "survey-mean",
+          "domain": "问卷",
+          "question": "满意评分的平均值是多少？",
+          "success": true,
+          "seconds": 1.625,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "满意评分"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "profile",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 344.3
+              }
+            }
+          ]
+        },
+        {
+          "id": "survey-frequencies",
+          "domain": "问卷",
+          "question": "统计满意度每种取值的记录数。",
+          "success": true,
+          "seconds": 1.427,
+          "tools": [
+            {
+              "tool": "analyze_distribution",
+              "arguments": {
+                "column": "满意度"
+              },
+              "status": "ok",
+              "tool_routing": {
+                "family": "profile",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 334.98
+              }
+            }
+          ]
+        },
+        {
+          "id": "representation-hints",
+          "domain": "格式与单位",
+          "question": "运行数据类型检查，指出带货币、百分号、单位或非ISO日期的字段；不转换数据。",
+          "success": true,
+          "seconds": 2.281,
+          "tools": [
+            {
+              "tool": "validate_data_types",
+              "arguments": {},
+              "status": "ok",
+              "tool_routing": {
+                "family": "rules",
+                "method": "llm_tool_family_selector",
+                "duration_ms": 346.59
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Synthetic development prompts reused during debugging, not held-out reliability or domain certification.",
+  "session_regression": {
+    "passed": 5,
+    "total": 5,
+    "complete": true
+  },
+  "reference_regression": {
+    "passed": 5,
+    "total": 5,
+    "complete": true
+  }
+}

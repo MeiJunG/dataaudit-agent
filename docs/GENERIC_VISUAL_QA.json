@@ -1,0 +1,103 @@
+{
+  "status": "passed_with_upload_limitation",
+  "scope": "Actual Chrome UI on final service, synthetic optional CSV example; arbitrary workbook uploads tested separately through Gradio API.",
+  "empty_home_verified": true,
+  "optional_examples_collapsed": true,
+  "catalog_count": 26,
+  "desktop": {
+    "width": 1280,
+    "scrollWidth": 1280
+  },
+  "mobile": {
+    "bodyScroll": 390,
+    "cards": [
+      {
+        "height": 615.28125,
+        "top": 557.375,
+        "width": 338,
+        "x": 26
+      },
+      {
+        "height": 950.90625,
+        "top": 1190.65625,
+        "width": 338,
+        "x": 26
+      }
+    ],
+    "scrollWidth": 390,
+    "width": 390
+  },
+  "calculation": {
+    "operation": "product",
+    "columns": [
+      "amount",
+      "quantity"
+    ],
+    "group_by": [
+      "region"
+    ],
+    "aggregation": "sum",
+    "results": {
+      "East": 840,
+      "West": 160,
+      "North": 2460
+    },
+    "valid_rows": 8,
+    "missing_input_rows": 1
+  },
+  "download": {
+    "completed": true,
+    "source_sha256": "f01a49112a0f03df2b75692cc67471843e7fac994c6cdc9841232d8aed138c45",
+    "tools": [
+      {
+        "tool": "calculate_row_metric",
+        "status": "error",
+        "arguments": {
+          "aggregation": "sum",
+          "columns": [
+            "amount",
+            "quantity"
+          ],
+          "group_by": [
+            "region"
+          ],
+          "header_row": 1,
+          "operation": "product",
+          "sheet": "Sheet1"
+        }
+      },
+      {
+        "tool": "calculate_row_metric",
+        "status": "ok",
+        "arguments": {
+          "aggregation": "sum",
+          "columns": [
+            "amount",
+            "quantity"
+          ],
+          "group_by": [
+            "region"
+          ],
+          "header_row": 1,
+          "operation": "product"
+        },
+        "data_origin": {
+          "header_row": 1,
+          "sha256": "f01a49112a0f03df2b75692cc67471843e7fac994c6cdc9841232d8aed138c45",
+          "sheet": null
+        }
+      }
+    ],
+    "private_source_path_exported": false,
+    "recovered_from_invented_csv_sheet": true
+  },
+  "browser_upload": {
+    "verified": false,
+    "error": "Chrome extension file URL access is disabled; fileChooser.setFiles rejected. No browser upload success is claimed."
+  },
+  "screenshots": [
+    "docs/images/generic-empty.jpg",
+    "docs/images/generic-workbench.jpg",
+    "docs/images/generic-mobile.jpg"
+  ]
+}

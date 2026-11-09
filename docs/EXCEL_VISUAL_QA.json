@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-07",
+  "browserControlAvailable": true,
+  "url": "http://127.0.0.1:7864/",
+  "checks": {
+    "xlsxUpload": true,
+    "worksheetSelection": true,
+    "thirdRowHeader": true,
+    "duplicateAndBlankHeaderMappingVisible": true,
+    "chinesePreviewRedaction": true,
+    "chineseColumnChart": true,
+    "referenceXlsxUploadAndSeparateWorksheet": true,
+    "comparisonMeans15And8Visible": true,
+    "downloadCompleted": true,
+    "downloadSheetHeaderAndOriginalHashesVerified": true,
+    "worksheetChangeHidesOldExportAndClearsReference": true,
+    "oldChartHiddenAfterWorksheetChange": true
+  },
+  "viewports": [
+    {
+      "headerRow": "3",
+      "pageWidth": 1280,
+      "tableRows": [
+        2
+      ],
+      "width": 1280
+    },
+    {
+      "controls": [
+        {
+          "left": 39,
+          "right": 351,
+          "text": "读取设置 · 工作表与表头 ▼"
+        },
+        {
+          "left": 68,
+          "right": 322,
+          "text": "工作表"
+        },
+        {
+          "left": 52,
+          "right": 338,
+          "text": "列名在第几行"
+        },
+        {
+          "left": 39,
+          "right": 351,
+          "text": " 按设置重新读取"
+        }
+      ],
+      "pageWidth": 390,
+      "tableRows": [
+        2
+      ],
+      "width": 390
+    }
+  ],
+  "defaultViewport": {
+    "width": 832,
+    "height": 984,
+    "pageWidth": 832
+  },
+  "consoleErrors": [],
+  "screenshots": [
+    "docs/images/excel-import.jpg",
+    "docs/images/excel-import-mobile.jpg"
+  ],
+  "scope": "Real XLSX browser interactions and viewport spot checks; XLS/TSV/GB18030 were separately checked through live API/model requests. Not exhaustive device/accessibility testing."
+}

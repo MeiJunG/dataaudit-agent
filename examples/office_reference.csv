@@ -1,0 +1,7 @@
+order_date,region,department,amount,status,legacy_note
+2026-09-01,East,Sales,100,completed,old
+2026-09-02,West,Support,100,completed,old
+2026-09-03,East,Sales,100,completed,old
+2026-09-04,West,Support,100,pending,old
+2026-09-05,North,Operations,100,completed,old
+2026-09-06,North,Operations,100,completed,old

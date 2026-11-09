@@ -1,0 +1,7 @@
+order_id,status,amount,recorded_amount,order_date,ship_date
+A001,completed,100,100,2026-10-01,2026-10-02
+A002,completed,200,,2026-10-02,2026-10-01
+A003," completed ",150,150,2026-10-03,2026-10-03
+A004,Completed,50,50,2026-10-04,invalid
+A005,pending,,,2026-10-05,
+A006,completed,,30,2026-10-06,2026-10-08

@@ -1,0 +1,127 @@
+{
+  "unit_tests": {
+    "total": 166,
+    "stdlib": 36,
+    "dependency": 130,
+    "seconds": 10.3
+  },
+  "passed": 6,
+  "total": 6,
+  "complete": true,
+  "cases": [
+    {
+      "id": "xlsx-chinese-mean",
+      "question": "金额（元）的平均值是多少？",
+      "success": true,
+      "seconds": 1.725,
+      "tools": [
+        {
+          "tool": "analyze_distribution",
+          "arguments": {
+            "column": "金额（元）",
+            "top_k": 1
+          },
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "id": "xlsx-chinese-chart",
+      "question": "按地区分组，用金额（元）的平均值画柱状图。",
+      "success": true,
+      "seconds": 1.627,
+      "tools": [
+        {
+          "tool": "create_chart",
+          "arguments": {
+            "chart_type": "bar",
+            "x": "地区",
+            "y": "金额（元）",
+            "method": "mean"
+          },
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "id": "xlsx-reference-sheets",
+      "question": "对照参考表，只比较金额（元）的缺失率和均值。",
+      "success": true,
+      "seconds": 1.643,
+      "tools": [
+        {
+          "tool": "compare_datasets",
+          "arguments": {
+            "columns": [
+              "金额（元）"
+            ]
+          },
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "id": "tsv-utf-8",
+      "question": "销售额的平均值是多少？",
+      "success": true,
+      "seconds": 1.434,
+      "tools": [
+        {
+          "tool": "analyze_distribution",
+          "arguments": {
+            "column": "销售额",
+            "top_k": 1
+          },
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "id": "csv-gb18030",
+      "question": "销售额的平均值是多少？",
+      "success": true,
+      "seconds": 1.329,
+      "tools": [
+        {
+          "tool": "analyze_distribution",
+          "arguments": {
+            "column": "销售额",
+            "top_k": 1
+          },
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "id": "xls-mean",
+      "question": "What is the average amount?",
+      "success": true,
+      "seconds": 1.33,
+      "tools": [
+        {
+          "tool": "analyze_distribution",
+          "arguments": {
+            "column": "amount"
+          },
+          "status": "ok"
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "scope": "Synthetic live development checks, not held-out evaluation.",
+    "excel_export_sheet_header_and_hash": true,
+    "worksheet_change_resets_previous_analysis_reference_and_export": true
+  },
+  "csv_regression": {
+    "passed": 5,
+    "total": 5,
+    "complete": true
+  },
+  "scope": "Synthetic development fixtures and prompts; not held-out model reliability. Raw results stay on the server.",
+  "harness_corrections": [
+    "Gradio omits layout components from public API results; corrected settings-result index.",
+    "API clients explicitly invoke reference settings before selecting a worksheet; browser change events already do this."
+  ],
+  "csv_header_offset_with_blank_title_row_checked": true
+}

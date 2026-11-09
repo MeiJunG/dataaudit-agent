@@ -1,0 +1,340 @@
+[
+  {
+    "id": "schema-en",
+    "dataset": "office",
+    "question": "How many rows and columns are in this CSV?",
+    "checks": [
+      "schema"
+    ]
+  },
+  {
+    "id": "schema-zh",
+    "dataset": "office",
+    "question": "数据有多少行、多少列？请用工具确认。",
+    "checks": [
+      "schema"
+    ]
+  },
+  {
+    "id": "missing-en",
+    "dataset": "office",
+    "question": "Count missing values for every field.",
+    "checks": [
+      "missing"
+    ]
+  },
+  {
+    "id": "missing-zh",
+    "dataset": "office",
+    "question": "逐列统计缺失数量。",
+    "checks": [
+      "missing"
+    ]
+  },
+  {
+    "id": "duplicates-en",
+    "dataset": "office",
+    "question": "Count fully duplicated rows, keeping the first occurrence.",
+    "checks": [
+      "duplicates"
+    ]
+  },
+  {
+    "id": "duplicates-region",
+    "dataset": "office",
+    "question": "Count duplicate rows using only region as the key.",
+    "checks": [
+      "region_duplicates"
+    ]
+  },
+  {
+    "id": "outliers-en",
+    "dataset": "outliers",
+    "question": "Find IQR outliers in value and report bounds.",
+    "checks": [
+      "outliers"
+    ]
+  },
+  {
+    "id": "outliers-zh",
+    "dataset": "outliers",
+    "question": "检查 value 列的 IQR 异常值，给出上下界和数量。",
+    "checks": [
+      "outliers"
+    ]
+  },
+  {
+    "id": "distribution-numeric",
+    "dataset": "office",
+    "question": "Summarize the mean and median of amount.",
+    "checks": [
+      "amount_distribution"
+    ]
+  },
+  {
+    "id": "distribution-category",
+    "dataset": "office",
+    "question": "Count the frequencies of each status.",
+    "checks": [
+      "status_distribution"
+    ]
+  },
+  {
+    "id": "types-en",
+    "dataset": "office",
+    "question": "Check text columns for numeric/non-numeric mixtures.",
+    "checks": [
+      "types"
+    ]
+  },
+  {
+    "id": "types-zh",
+    "dataset": "office",
+    "question": "检查哪些文本列混入了无法转换为数字的内容。",
+    "checks": [
+      "types"
+    ]
+  },
+  {
+    "id": "correlation-en",
+    "dataset": "office",
+    "question": "Find the Pearson correlation between amount and doubled_amount.",
+    "checks": [
+      "correlation"
+    ]
+  },
+  {
+    "id": "correlation-zh",
+    "dataset": "office",
+    "question": "计算 amount 和 doubled_amount 的 Pearson 相关性。",
+    "checks": [
+      "correlation"
+    ]
+  },
+  {
+    "id": "group-mean-en",
+    "dataset": "office",
+    "question": "Compare mean amount by region, ignoring missing amounts.",
+    "checks": [
+      "group_mean"
+    ]
+  },
+  {
+    "id": "group-mean-zh",
+    "dataset": "office",
+    "question": "按 region 分组，计算每组 amount 的平均值，忽略缺失值。",
+    "checks": [
+      "group_mean"
+    ]
+  },
+  {
+    "id": "group-sum",
+    "dataset": "office",
+    "question": "Calculate total amount for each region.",
+    "checks": [
+      "group_sum"
+    ]
+  },
+  {
+    "id": "group-count",
+    "dataset": "office",
+    "question": "For each region count non-null status values.",
+    "checks": [
+      "group_count"
+    ]
+  },
+  {
+    "id": "dates-en",
+    "dataset": "office",
+    "question": "Inspect the date range and invalid dates in order_date.",
+    "checks": [
+      "dates"
+    ]
+  },
+  {
+    "id": "dates-zh",
+    "dataset": "office",
+    "question": "检查 order_date：最早、最晚日期是什么，有多少个无效日期？",
+    "checks": [
+      "dates"
+    ]
+  },
+  {
+    "id": "report-en",
+    "dataset": "office",
+    "question": "Generate a downloadable CSV quality report.",
+    "checks": [
+      "report"
+    ]
+  },
+  {
+    "id": "report-zh",
+    "dataset": "office",
+    "question": "生成一份完整的 CSV 质量检查报告供下载。",
+    "checks": [
+      "report"
+    ]
+  },
+  {
+    "id": "multi-missing-duplicates",
+    "dataset": "office",
+    "question": "Use tools to check missing counts by field and the number of fully duplicated rows.",
+    "checks": [
+      "missing",
+      "duplicates"
+    ]
+  },
+  {
+    "id": "multi-types-dates",
+    "dataset": "office",
+    "question": "Check mixed numeric text types and inspect the range and invalid entries in order_date.",
+    "checks": [
+      "types",
+      "dates"
+    ]
+  },
+  {
+    "id": "range-en",
+    "dataset": "reconciliation",
+    "question": "Check whether amount is within the inclusive range 0 to 250. Report missing values separately.",
+    "checks": [
+      "numeric_range"
+    ]
+  },
+  {
+    "id": "range-zh",
+    "dataset": "reconciliation",
+    "question": "检查 amount 是否在闭区间 0 到 250 内，并单独统计缺失值。",
+    "checks": [
+      "numeric_range"
+    ]
+  },
+  {
+    "id": "reconcile-en",
+    "dataset": "reconciliation",
+    "question": "Compare amount and recorded_amount row by row using numeric absolute tolerance 0.01. Count matching, mismatching and missing pairs.",
+    "checks": [
+      "reconciliation"
+    ]
+  },
+  {
+    "id": "reconcile-zh",
+    "dataset": "reconciliation",
+    "question": "逐行核对 amount 和 recorded_amount，按数值比较，绝对误差不超过 0.01 算一致，缺失单独统计。",
+    "checks": [
+      "reconciliation"
+    ]
+  },
+  {
+    "id": "monthly-en",
+    "dataset": "reconciliation",
+    "question": "Sum amount by calendar month using order_date, excluding invalid dates.",
+    "checks": [
+      "monthly_total"
+    ]
+  },
+  {
+    "id": "monthly-zh",
+    "dataset": "reconciliation",
+    "question": "按 order_date 的自然月汇总 amount 总额，无效日期单独统计。",
+    "checks": [
+      "monthly_total"
+    ]
+  },
+  {
+    "id": "category-en",
+    "question": "Check status against the allowed values completed, pending, cancelled, case-sensitive. Count values outside this list.",
+    "dataset": "rules",
+    "checks": [
+      "allowed_categories"
+    ]
+  },
+  {
+    "id": "category-zh",
+    "question": "status 只允许 completed、pending、cancelled，区分大小写。检查列表外的值和数量。",
+    "dataset": "rules",
+    "checks": [
+      "allowed_categories"
+    ]
+  },
+  {
+    "id": "key-en",
+    "question": "Check order_id as a proposed primary key, including missing and duplicate keys.",
+    "dataset": "rules",
+    "checks": [
+      "primary_key"
+    ]
+  },
+  {
+    "id": "key-zh",
+    "question": "检查 order_id 能否作为主键，同时统计缺失键和重复键涉及的行数。",
+    "dataset": "rules",
+    "checks": [
+      "primary_key"
+    ]
+  },
+  {
+    "id": "filter-en",
+    "question": "Filter rows where status equals completed, case-sensitive. Sum amount in these rows and count missing amounts separately.",
+    "dataset": "rules",
+    "checks": [
+      "filtered_sum"
+    ]
+  },
+  {
+    "id": "filter-zh",
+    "question": "只保留 status 等于 completed 的记录，区分大小写，计算 amount 总额，缺失单独统计。",
+    "dataset": "rules",
+    "checks": [
+      "filtered_sum"
+    ]
+  },
+  {
+    "id": "text-en",
+    "dataset": "consistency",
+    "question": "Check status for leading/trailing spaces and inconsistent letter-case spellings.",
+    "checks": [
+      "text_quality"
+    ]
+  },
+  {
+    "id": "text-zh",
+    "dataset": "consistency",
+    "question": "检查 status 的首尾空格和大小写混用情况。",
+    "checks": [
+      "text_quality"
+    ]
+  },
+  {
+    "id": "required-en",
+    "dataset": "consistency",
+    "question": "For rows where status equals completed exactly, require both amount and recorded_amount. Check missing required fields.",
+    "checks": [
+      "required_if"
+    ]
+  },
+  {
+    "id": "required-zh",
+    "dataset": "consistency",
+    "question": "status 等于 completed 时，amount 和 recorded_amount 必填。检查哪些必填项缺失。",
+    "checks": [
+      "required_if"
+    ]
+  },
+  {
+    "id": "date-order-en",
+    "dataset": "consistency",
+    "question": "Check order_date <= ship_date using ISO dates. Equality is allowed; report missing and invalid date pairs separately.",
+    "checks": [
+      "date_order"
+    ]
+  },
+  {
+    "id": "date-order-zh",
+    "dataset": "consistency",
+    "question": "核对 order_date 不能晚于 ship_date，允许同一天，日期缺失和无效单独统计。",
+    "checks": [
+      "date_order"
+    ]
+  }
+]

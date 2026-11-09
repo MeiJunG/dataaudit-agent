@@ -1,0 +1,305 @@
+{
+  "suite": "thirteen_tasks",
+  "scorer_revision": 2,
+  "tasks_file": "thirteen_tasks.json",
+  "model": "qwen2.5-7b-instruct",
+  "scope": "Computed tool evidence and termination; generated prose accuracy is not automatically scored.",
+  "max_steps": 3,
+  "complete": true,
+  "passed": 30,
+  "completed": 30,
+  "total": 30,
+  "seconds": 39.548,
+  "covered_tools": [
+    "analyze_distribution",
+    "check_correlations",
+    "check_duplicates",
+    "check_missing_values",
+    "check_numeric_range",
+    "compare_columns",
+    "compare_groups",
+    "detect_outliers",
+    "generate_quality_report",
+    "inspect_date_column",
+    "inspect_schema",
+    "summarize_time_series",
+    "validate_data_types"
+  ],
+  "error_observations": 1,
+  "initial_run": {
+    "passed": 29,
+    "total": 30,
+    "seconds": 38.596,
+    "failure": "Omitted numeric mode followed by unsupported counts; fixed automatic mode and final-answer evidence guards."
+  },
+  "pre_formatter_run": {
+    "passed": 30,
+    "total": 30,
+    "seconds": 40.848,
+    "limitation": "Tool evidence passed, but separate web checks found incorrect model paraphrases. Focused business answers now use direct rendering."
+  },
+  "web_checks": [
+    {
+      "tool": "check_numeric_range",
+      "success": true,
+      "answer": "**`amount` 范围检查（含边界）**\n\n下限 0，上限 250。\n\n检查 7 个有效数值：低于下限 1 个，高于上限 2 个，共 3 个超限。\n\n缺失 1 个，无效数值 0 个。"
+    },
+    {
+      "tool": "compare_columns",
+      "success": true,
+      "answer": "**`amount` / `recorded_amount` 逐行核对**\n\n可比较 6 行：一致 5 行，不一致 1 行。\n\n单边缺失 1 行，双边缺失 1 行，无效数值对 0 行。\n\n按数值比较，允许绝对误差 0.01。"
+    },
+    {
+      "tool": "summarize_time_series",
+      "success": true,
+      "answer": "**`amount` 按月总额（UTC）**\n\n| 期间起点 | 记录数 | 有效指标数 | 结果 |\n|---|---:|---:|---:|\n| 2026-10-01 | 7 | 6 | 670 |\n\n无效日期 1 行，缺失日期 0 行；有效日期记录中，指标缺失或无效 1 行。"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "schema-en",
+      "success": true,
+      "seconds": 1.208,
+      "tools": [
+        "inspect_schema"
+      ]
+    },
+    {
+      "id": "schema-zh",
+      "success": true,
+      "seconds": 2.26,
+      "tools": [
+        "inspect_schema"
+      ]
+    },
+    {
+      "id": "missing-en",
+      "success": true,
+      "seconds": 1.05,
+      "tools": [
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "missing-zh",
+      "success": true,
+      "seconds": 1.247,
+      "tools": [
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "duplicates-en",
+      "success": true,
+      "seconds": 0.88,
+      "tools": [
+        "check_duplicates"
+      ]
+    },
+    {
+      "id": "duplicates-region",
+      "success": true,
+      "seconds": 0.933,
+      "tools": [
+        "check_duplicates"
+      ]
+    },
+    {
+      "id": "outliers-en",
+      "success": true,
+      "seconds": 1.088,
+      "tools": [
+        "detect_outliers"
+      ]
+    },
+    {
+      "id": "outliers-zh",
+      "success": true,
+      "seconds": 1.127,
+      "tools": [
+        "detect_outliers"
+      ]
+    },
+    {
+      "id": "distribution-numeric",
+      "success": true,
+      "seconds": 1.07,
+      "tools": [
+        "analyze_distribution"
+      ]
+    },
+    {
+      "id": "distribution-category",
+      "success": true,
+      "seconds": 1.483,
+      "tools": [
+        "compare_groups",
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "types-en",
+      "success": true,
+      "seconds": 1.257,
+      "tools": [
+        "validate_data_types"
+      ]
+    },
+    {
+      "id": "types-zh",
+      "success": true,
+      "seconds": 0.938,
+      "tools": [
+        "validate_data_types"
+      ]
+    },
+    {
+      "id": "correlation-en",
+      "success": true,
+      "seconds": 1.13,
+      "tools": [
+        "check_correlations"
+      ]
+    },
+    {
+      "id": "correlation-zh",
+      "success": true,
+      "seconds": 1.175,
+      "tools": [
+        "check_correlations"
+      ]
+    },
+    {
+      "id": "group-mean-en",
+      "success": true,
+      "seconds": 1.347,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "group-mean-zh",
+      "success": true,
+      "seconds": 1.34,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "group-sum",
+      "success": true,
+      "seconds": 1.368,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "group-count",
+      "success": true,
+      "seconds": 1.252,
+      "tools": [
+        "compare_groups"
+      ]
+    },
+    {
+      "id": "dates-en",
+      "success": true,
+      "seconds": 1.298,
+      "tools": [
+        "inspect_date_column"
+      ]
+    },
+    {
+      "id": "dates-zh",
+      "success": true,
+      "seconds": 1.071,
+      "tools": [
+        "inspect_date_column"
+      ]
+    },
+    {
+      "id": "report-en",
+      "success": true,
+      "seconds": 1.411,
+      "tools": [
+        "generate_quality_report"
+      ]
+    },
+    {
+      "id": "report-zh",
+      "success": true,
+      "seconds": 1.674,
+      "tools": [
+        "generate_quality_report"
+      ]
+    },
+    {
+      "id": "multi-missing-duplicates",
+      "success": true,
+      "seconds": 1.298,
+      "tools": [
+        "check_missing_values",
+        "check_duplicates"
+      ]
+    },
+    {
+      "id": "multi-types-dates",
+      "success": true,
+      "seconds": 1.715,
+      "tools": [
+        "validate_data_types",
+        "inspect_date_column"
+      ]
+    },
+    {
+      "id": "range-en",
+      "success": true,
+      "seconds": 1.751,
+      "tools": [
+        "check_numeric_range",
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "range-zh",
+      "success": true,
+      "seconds": 1.595,
+      "tools": [
+        "check_numeric_range",
+        "check_missing_values"
+      ]
+    },
+    {
+      "id": "reconcile-en",
+      "success": true,
+      "seconds": 1.236,
+      "tools": [
+        "compare_columns"
+      ]
+    },
+    {
+      "id": "reconcile-zh",
+      "success": true,
+      "seconds": 1.311,
+      "tools": [
+        "compare_columns"
+      ]
+    },
+    {
+      "id": "monthly-en",
+      "success": true,
+      "seconds": 1.27,
+      "tools": [
+        "summarize_time_series"
+      ]
+    },
+    {
+      "id": "monthly-zh",
+      "success": true,
+      "seconds": 1.765,
+      "tools": [
+        "summarize_time_series"
+      ]
+    }
+  ]
+}

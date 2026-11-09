@@ -1,0 +1,8 @@
+customer_id,age,monthly_spend,region
+1,28,45.5,North
+2,35,72.0,West
+3,,61.2,North
+4,42,999.0,East
+5,35,72.0,West
+6,24,,South
+

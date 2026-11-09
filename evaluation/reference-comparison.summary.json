@@ -1,0 +1,150 @@
+{
+  "tool_count": 21,
+  "base_tools": 20,
+  "reference_tools": 1,
+  "unit_tests": {
+    "passed": 148,
+    "stdlib": 36,
+    "dependency": 112,
+    "seconds": 9.57
+  },
+  "reference_comparison": {
+    "complete": true,
+    "reference_upload": true,
+    "scope": "Synthetic development cases; live Gradio callbacks, separate browser checks required",
+    "json_export_exact_question_and_hashes": true,
+    "reference_clear_resets_history_and_export": true,
+    "current_dataset_switch_resets_reference": true,
+    "passed": 5,
+    "total": 5
+  },
+  "cases": [
+    {
+      "id": "all-zh",
+      "question": "对照当前表和参考表，检查字段、缺失率和分布变化。",
+      "success": true,
+      "seconds": 1.979,
+      "tools": [
+        {
+          "tool": "compare_datasets",
+          "arguments": {
+            "columns": null
+          },
+          "routing": {
+            "scope": "reference_comparison",
+            "method": "llm_scope_selector",
+            "duration_ms": 337.82
+          }
+        }
+      ]
+    },
+    {
+      "id": "amount-en",
+      "question": "Compare only amount with the reference: missing rate and mean.",
+      "success": true,
+      "seconds": 1.834,
+      "tools": [
+        {
+          "tool": "compare_datasets",
+          "arguments": {
+            "columns": [
+              "amount"
+            ]
+          },
+          "routing": {
+            "scope": "reference_comparison",
+            "method": "llm_scope_selector",
+            "duration_ms": 397.16
+          }
+        }
+      ]
+    },
+    {
+      "id": "region-followup-zh",
+      "question": "这次只对照 region 的类别比例。",
+      "success": true,
+      "seconds": 1.927,
+      "tools": [
+        {
+          "tool": "compare_datasets",
+          "arguments": {
+            "columns": [
+              "region"
+            ]
+          },
+          "routing": {
+            "scope": "reference_comparison",
+            "method": "llm_scope_selector",
+            "duration_ms": 327.69
+          }
+        }
+      ]
+    },
+    {
+      "id": "schema-en",
+      "question": "Compare the schema of the current and reference CSV files.",
+      "success": true,
+      "seconds": 2.829,
+      "tools": [
+        {
+          "tool": "compare_datasets",
+          "arguments": {
+            "columns": null
+          },
+          "routing": {
+            "scope": "reference_comparison",
+            "method": "llm_scope_selector",
+            "duration_ms": 397.8
+          }
+        }
+      ]
+    }
+  ],
+  "current_only_with_reference": {
+    "success": true
+  },
+  "prior_failures": [
+    {
+      "record": "comparison-web-first.json",
+      "passed": 3,
+      "total": 4,
+      "failed_cases": [
+        {
+          "id": "region-followup-zh",
+          "selected_tools": [
+            "compare_groups"
+          ]
+        }
+      ]
+    },
+    {
+      "record": "comparison-web-final.json",
+      "passed": 3,
+      "total": 4,
+      "failed_cases": [
+        {
+          "id": "region-followup-zh",
+          "selected_tools": [
+            "analyze_distribution"
+          ]
+        }
+      ]
+    }
+  ],
+  "initial_context_failure": {
+    "success": false,
+    "error": "OpenAIInvalidRequestError: Error code: 400 - request (4220 tokens) exceeds the available context size (4096 tokens), try increasing it"
+  },
+  "session_regression": {
+    "complete": true,
+    "scope": "Synthetic development requests; server callbacks, not browser rendering",
+    "fresh_keeps_archive": true,
+    "dataset_reset": true,
+    "separate_session_empty": true,
+    "clear_reset": true,
+    "passed": 5,
+    "total": 5,
+    "restore_and_branch": true
+  },
+  "scope": "Synthetic development requests used during debugging; not held-out evaluation. Raw logs remain on the server."
+}

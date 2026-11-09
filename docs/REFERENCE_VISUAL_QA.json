@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-07",
+  "url": "http://127.0.0.1:7864/",
+  "browserControlAvailable": true,
+  "toolCatalogCount": 21,
+  "viewports": [
+    {
+      "footer": [
+        {
+          "height": 19,
+          "y": 2449.2421875
+        },
+        {
+          "height": 19,
+          "y": 2468.2421875
+        }
+      ],
+      "height": 844,
+      "newQuestionWidth": 68,
+      "pageWidth": 390,
+      "tableRows": [
+        2,
+        4
+      ],
+      "width": 390
+    },
+    {
+      "height": 1024,
+      "pageWidth": 768,
+      "resultWidth": 670,
+      "width": 768
+    },
+    {
+      "height": 900,
+      "pageWidth": 908,
+      "stacked": true,
+      "width": 908
+    },
+    {
+      "centerOffset": 0,
+      "height": 900,
+      "pageWidth": 1280,
+      "stacked": false,
+      "width": 1280
+    }
+  ],
+  "checks": {
+    "referenceExampleSelection": true,
+    "regionFollowupAndCategoryShareChart": true,
+    "globalComparisonTableSixRows": true,
+    "jsonDownloadCompleted": true,
+    "downloadBytes": 13169,
+    "exactRecordedQuestionDespiteUnsubmittedEdit": true,
+    "bothSourceHashesVerified": true,
+    "finalCategoryRecordDownloadedAndVerified": true,
+    "newQuestionHidesExportAndKeepsArchive": true,
+    "historyRestoreRestoresExport": true,
+    "referenceRemovalClearsAnswerHistoryAndExport": true,
+    "currentDatasetSwitchClearsReference": true,
+    "mobileFooterSeparateLines": true
+  },
+  "downloadFix": {
+    "initial": "Visible Gradio download control produced no download event; native link alone also failed",
+    "observedResponse": "Gradio file response was inline",
+    "final": "Strict generated-record attachment route; completed browser downloads verified"
+  },
+  "consoleErrors": [],
+  "screenshots": [
+    "docs/images/workbench.jpg",
+    "docs/images/workbench-mobile.jpg"
+  ],
+  "scope": "Real browser spot checks; not exhaustive device/accessibility testing. Historical 20-tool QA remains in VISUAL_QA.json."
+}

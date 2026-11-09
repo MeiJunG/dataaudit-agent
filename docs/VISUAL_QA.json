@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-07",
+  "timezone": "America/Chicago",
+  "url": "http://127.0.0.1:7864/",
+  "browserControlAvailable": true,
+  "initialError": "net::ERR_CONNECTION_REFUSED; localhost SSH forward absent",
+  "forwardRestored": true,
+  "viewports": [
+    {
+      "buttonHeight": 32,
+      "buttonWidth": 68,
+      "height": 844,
+      "pageWidth": 390,
+      "width": 390
+    },
+    {
+      "buttonHeight": 32,
+      "buttonWidth": 68,
+      "height": 1024,
+      "pageWidth": 768,
+      "width": 768
+    },
+    {
+      "buttonHeight": 32,
+      "buttonWidth": 68,
+      "height": 720,
+      "pageWidth": 1280,
+      "width": 1280
+    }
+  ],
+  "defaultLayout": {
+    "containerCenterOffset": 0,
+    "height": 720,
+    "pageWidth": 1280,
+    "width": 1280
+  },
+  "fix": {
+    "control": "新问题",
+    "before": {
+      "width": 22,
+      "height": 61.5
+    },
+    "after": {
+      "width": 68,
+      "height": 32
+    },
+    "change": "Prevent flex shrinking, enforce width/min-width and nowrap"
+  },
+  "checks": {
+    "csvUpload": true,
+    "plotGeneration": true,
+    "followupMean": true,
+    "historyRestore": true,
+    "newQuestionClearsResultAndKeepsArchive": true,
+    "datasetSwitchClearsResults": true,
+    "previewRedaction": true,
+    "htmlDownload": true,
+    "offlineHtmlBytes": 4860035,
+    "mobileCatalogNoOverflow": true
+  },
+  "consoleErrors": [],
+  "screenshots": [
+    "docs/images/workbench.jpg",
+    "docs/images/workbench-mobile.jpg"
+  ],
+  "scope": "Real browser spot checks at 390, 768 and 1280 CSS pixels; not exhaustive device/accessibility testing"
+}
